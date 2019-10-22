@@ -1,0 +1,20 @@
+{
+  "name": "@ecommerce/server",
+  "version": "0.0.1",
+  "description": "ecommerce server",
+  "scripts": {
+    "dev": "ts-node-dev --ignore-watch node_modules --respawn src/index.ts"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "graphql-yoga": "^1.18.3",
+    "reflect-metadata": "^0.1.13",
+    "signale": "^1.4.0",
+    "typeorm": "^0.2.20",
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "pg": "^7.12.1",
+    "ts-node-dev": "^1.0.0-pre.43"
+  }
+}
