@@ -5,6 +5,7 @@ type Query {
 type Mutation {
   # prettier-ignore
   signup(firstName: String! lastName: String! email: String! password: String!): [Error!]
+  sendForgotPasswordEmail(email: String!): Boolean
 }
 
 # Utils
