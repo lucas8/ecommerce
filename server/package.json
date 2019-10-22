@@ -6,15 +6,23 @@
     "dev": "ts-node-dev --ignore-watch node_modules --respawn src/index.ts"
   },
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "dotenv": "^8.2.0",
+    "glob": "^7.1.5",
     "graphql-yoga": "^1.18.3",
     "reflect-metadata": "^0.1.13",
     "signale": "^1.4.0",
     "typeorm": "^0.2.20",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/signale": "^1.2.1",
+    "@types/yup": "^0.26.24",
     "pg": "^7.12.1",
-    "ts-node-dev": "^1.0.0-pre.43"
+    "ts-node-dev": "^1.0.0-pre.43",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0"
   }
 }
