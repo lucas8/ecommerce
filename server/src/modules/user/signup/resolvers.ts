@@ -20,10 +20,7 @@ export const resolvers: ResolverMap = {
 
       const { email, password, firstName, lastName } = args;
 
-      const userAlreadyExists = await User.findOne({
-        where: { email },
-        select: ["id"]
-      });
+      const userAlreadyExists = await User.findOne({ email });
 
       if (userAlreadyExists) {
         throw new duplicateEmail()

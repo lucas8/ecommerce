@@ -1,9 +1,5 @@
 import * as yup from "yup";
-import {
-  passwordNotLongEnough,
-  invalidEmail,
-  emailNotLongEnough
-} from "./errorMessages";
+import { invalidEmail, emailNotLongEnough } from "./errorMessages";
 import { sign } from "jsonwebtoken";
 
 export const signupSchema = yup.object().shape({
@@ -14,7 +10,7 @@ export const signupSchema = yup.object().shape({
     .email(invalidEmail),
   password: yup
     .string()
-    .min(3, passwordNotLongEnough)
+    .min(3, "Password must be at least 3 characters")
     .max(255)
 });
 

@@ -7,7 +7,7 @@ import { getUserId } from "../../../utils/getUserId";
 export const resolvers: ResolverMap = {
   Query: {
     me: createMiddleware(middleware, (_, __, ctx: Context) =>
-      User.findOne({ where: { id: getUserId(ctx) } })
+      User.findOne({ id: getUserId(ctx) })
     )
   }
 };

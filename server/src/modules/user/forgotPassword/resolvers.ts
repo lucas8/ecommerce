@@ -19,7 +19,7 @@ interface TokenObject {
 export const resolvers: ResolverMap = {
   Mutation: {
     sendForgotPasswordEmail: async (_, { email }: { email: string }, __) => {
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({ email });
       if (!user) {
         throw new userNotFoundError();
       }

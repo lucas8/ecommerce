@@ -17,7 +17,7 @@ import { userNotFoundError } from "../shared/errorMessages";
 export const resolvers: ResolverMap = {
   Mutation: {
     login: async (_, { email, password }: LoginType, { response }: Context) => {
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({ email });
 
       if (!user) {
         throw new userNotFoundError();

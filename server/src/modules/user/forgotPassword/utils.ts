@@ -1,12 +1,11 @@
 import * as yup from "yup";
-import { passwordNotLongEnough } from "./errorMessages";
 import { User } from "../../../entity/User";
 import { sign } from "jsonwebtoken";
 
 export const forgotPasswordSchema = yup.object().shape({
   password: yup
     .string()
-    .min(3, passwordNotLongEnough.message)
+    .min(3, "Password must be at least 3 characters")
     .max(255)
 });
 
