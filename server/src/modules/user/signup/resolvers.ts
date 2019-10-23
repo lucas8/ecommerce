@@ -11,7 +11,6 @@ export const resolvers: ResolverMap = {
   Mutation: {
     // prettier-ignore
     signup: async (_, args: SignupArgs, __) => {
-      console.log(args)
       try {
         await signupSchema.validate(args, { abortEarly: false });
       } catch (err) {
@@ -26,12 +25,7 @@ export const resolvers: ResolverMap = {
       });
 
       if (userAlreadyExists) {
-        return [
-          {
-            path: "email",
-            message: duplicateEmail
-          }
-        ];
+        throw new duplicateEmail()
       }
 
       const user = User.create({

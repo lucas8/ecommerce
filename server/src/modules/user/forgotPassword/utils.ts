@@ -6,7 +6,7 @@ import { sign } from "jsonwebtoken";
 export const forgotPasswordSchema = yup.object().shape({
   password: yup
     .string()
-    .min(3, passwordNotLongEnough)
+    .min(3, passwordNotLongEnough.message)
     .max(255)
 });
 
@@ -21,3 +21,8 @@ export const createForgotPasswordLink = async (userId: string) => {
 
   return `${process.env.FRONTEND_URL}/user/change-password/${id}`;
 };
+
+export interface ForgotPassword {
+  newPassword: string;
+  token: string;
+}
