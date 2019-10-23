@@ -1,8 +1,9 @@
 import { ResolverMap } from "../../../utils/types";
-import { SignupArgs, signupSchema } from "./utils";
+import { SignupArgs, signupSchema, createConfirmationEmail } from "./utils";
 import { formatYupError } from "../../../utils/formatYupError";
 import { User } from "../../../entity/User";
 import { duplicateEmail } from "./errorMessages";
+import { sendEmail } from "../../../utils/sendEmail";
 
 export const resolvers: ResolverMap = {
   Query: {
@@ -36,6 +37,10 @@ export const resolvers: ResolverMap = {
       });
 
       await user.save()
+
+      const confirmationLink = await createConfirmationEmail(user.id)
+      
+      sendEmail(user.email, confirmationLink);
 
       return null;
     }
