@@ -30,6 +30,9 @@ export class User extends BaseEntity {
   @Column({ default: false })
   forgotPasswordLocked: boolean;
 
+  @Column({ default: 0 })
+  tokenVersion: number;
+
   @BeforeInsert()
   async hashPasswordBeforeInsert() {
     this.password = await hash(this.password, 10);
