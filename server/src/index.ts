@@ -1,19 +1,15 @@
 import "reflect-metadata";
 import "dotenv/config";
-import * as glob from "glob";
-import * as path from "path";
 import * as signale from "signale";
 import { GraphQLServer } from "graphql-yoga";
 import { createConnection } from "typeorm";
+import { genSchema } from "./utils/genSchema";
 
 const main = async () => {
   await createConnection();
 
   const server = new GraphQLServer({
-    resolvers: glob
-      .sync(`${path.join(__dirname, "./modules")}/**/resolvers.?s`)
-      .map((resolver: any) => require(resolver).resolvers),
-    typeDefs: "./src/schema.graphql",
+    schema: genSchema() as any,
     context: request => ({
       ...request
     })
