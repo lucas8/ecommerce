@@ -14,7 +14,3 @@ export const forgotPasswordLockedError = createError(
     message: "Account is locked"
   }
 );
-
-export const userNotFoundError = createError("UserNotFoundError", {
-  message: "User not found"
-});

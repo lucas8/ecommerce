@@ -3,8 +3,7 @@ import { User } from "../../../entity/User";
 import {
   invalidLogin,
   confirmEmailError,
-  forgotPasswordLockedError,
-  userNotFoundError
+  forgotPasswordLockedError
 } from "./errorMessages";
 import { LoginType } from "./utils";
 import { compare } from "bcrypt";
@@ -13,6 +12,7 @@ import {
   createRefreshToken,
   createAccessToken
 } from "../../../utils/createToken";
+import { userNotFoundError } from "../shared/errorMessages";
 
 export const resolvers: ResolverMap = {
   Mutation: {

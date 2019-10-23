@@ -6,7 +6,7 @@ import {
   ForgotPassword,
   forgotPasswordSchema
 } from "./utils";
-import { userNotFoundError } from "./errorMessages";
+import { userNotFoundError } from "../shared/errorMessages";
 import { verify } from "jsonwebtoken";
 import { formatYupError } from "../../../utils/formatYupError";
 import { hash } from "bcrypt";
