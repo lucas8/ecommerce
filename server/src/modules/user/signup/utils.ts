@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { invalidEmail, emailNotLongEnough } from "./errorMessages";
 import { sign } from "jsonwebtoken";
 
-export const signupSchema = yup.object().shape({
+export const signupSchema: yup.ObjectSchema = yup.object().shape({
   email: yup
     .string()
     .min(3, emailNotLongEnough)
@@ -14,15 +14,8 @@ export const signupSchema = yup.object().shape({
     .max(255)
 });
 
-export interface SignupArgs {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-
 export const createConfirmationEmail = async (userId: string) => {
-  const id = sign({ userId }, process.env.EMAIL_TOKEN_SECRET!);
+  const id: string = sign({ userId }, process.env.EMAIL_TOKEN_SECRET!);
 
   return `${process.env.FRONTEND_URL}/user/confirm/${id}`;
 };

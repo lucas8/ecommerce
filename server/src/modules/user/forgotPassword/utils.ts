@@ -20,8 +20,3 @@ export const createForgotPasswordLink = async (userId: string) => {
 
   return `${process.env.FRONTEND_URL}/user/change-password/${id}`;
 };
-
-export interface ForgotPassword {
-  newPassword: string;
-  token: string;
-}

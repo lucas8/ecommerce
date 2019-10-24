@@ -6,6 +6,7 @@
     "dev": "ts-node-dev --ignore-watch node_modules --respawn src/index.ts"
   },
   "dependencies": {
+    "@sendgrid/helpers": "^6.4.0",
     "@sendgrid/mail": "^6.4.0",
     "apollo-errors": "^1.9.0",
     "bcrypt": "^3.0.6",

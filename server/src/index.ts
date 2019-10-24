@@ -12,7 +12,7 @@ import { RefreshRoute } from "./routes/refreshRoute";
 const main = async () => {
   await createConnection();
 
-  const server = new GraphQLServer({
+  const server: GraphQLServer = new GraphQLServer({
     schema: genSchema() as any,
     context: request => ({
       ...request

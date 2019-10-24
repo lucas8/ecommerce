@@ -5,7 +5,6 @@ import {
   confirmEmailError,
   forgotPasswordLockedError
 } from "./errorMessages";
-import { LoginType } from "./utils";
 import { compare } from "bcrypt";
 import { sendRefreshToken } from "../../../utils/sendRefreshToken";
 import {
@@ -14,9 +13,14 @@ import {
 } from "../../../utils/createToken";
 import { userNotFoundError } from "../shared/errorMessages";
 
+interface LoginArgs {
+  email: string;
+  password: string;
+}
+
 export const resolvers: ResolverMap = {
   Mutation: {
-    login: async (_, { email, password }: LoginType, { response }: Context) => {
+    login: async (_, { email, password }: LoginArgs, { response }: Context) => {
       const user = await User.findOne({ email });
 
       if (!user) {

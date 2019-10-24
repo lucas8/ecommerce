@@ -3,7 +3,6 @@ import { User } from "../../../entity/User";
 import {
   forgotPasswordLockAccount,
   createForgotPasswordLink,
-  ForgotPassword,
   forgotPasswordSchema
 } from "./utils";
 import { userNotFoundError } from "../shared/errorMessages";
@@ -14,6 +13,11 @@ import { sendEmail } from "../../../utils/sendEmail";
 
 interface TokenObject {
   userId: string;
+}
+
+interface ForgotPasswordArgs {
+  newPassword: string;
+  token: string;
 }
 
 export const resolvers: ResolverMap = {
@@ -34,7 +38,7 @@ export const resolvers: ResolverMap = {
     },
     forgotPasswordChange: async (
       _,
-      { newPassword, token }: ForgotPassword,
+      { newPassword, token }: ForgotPasswordArgs,
       __
     ) => {
       const { userId } = verify(

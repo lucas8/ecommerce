@@ -1,9 +1,16 @@
 import { ResolverMap } from "../../../utils/types";
-import { SignupArgs, signupSchema, createConfirmationEmail } from "./utils";
+import { signupSchema, createConfirmationEmail } from "./utils";
 import { formatYupError } from "../../../utils/formatYupError";
 import { User } from "../../../entity/User";
 import { duplicateEmail } from "./errorMessages";
 import { sendEmail } from "../../../utils/sendEmail";
+
+interface SignupArgs {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
 
 export const resolvers: ResolverMap = {
   Query: {
@@ -18,15 +25,15 @@ export const resolvers: ResolverMap = {
         return formatYupError(err);
       }
 
-      const { email, password, firstName, lastName } = args;
+      const { email, password, firstName, lastName }: SignupArgs = args;
 
-      const userAlreadyExists = await User.findOne({ email });
+      const userAlreadyExists: User | undefined = await User.findOne({ email });
 
       if (userAlreadyExists) {
         throw new duplicateEmail()
       }
 
-      const user = User.create({
+      const user: User = User.create({
         email,
         password,
         firstName,
@@ -35,7 +42,7 @@ export const resolvers: ResolverMap = {
 
       await user.save()
 
-      const confirmationLink = await createConfirmationEmail(user.id)
+      const confirmationLink: string = await createConfirmationEmail(user.id)
       
       sendEmail(user.email, confirmationLink);
 
