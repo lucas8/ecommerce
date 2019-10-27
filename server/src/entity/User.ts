@@ -3,9 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BeforeInsert,
-  Entity
+  Entity,
+  OneToOne
 } from "typeorm";
 import { hash } from "bcrypt";
+import { Site } from "./Site";
 
 @Entity()
 export class User extends BaseEntity {
@@ -32,6 +34,9 @@ export class User extends BaseEntity {
 
   @Column({ default: 0 })
   tokenVersion: number;
+
+  @OneToOne(() => Site, site => site.owner)
+  site: Site;
 
   @BeforeInsert()
   async hashPasswordBeforeInsert() {
