@@ -1,7 +1,7 @@
 import { createError } from "apollo-errors";
 
 export const invalidLogin = createError("InvalidLogin", {
-  message: "Invalid login"
+  message: "Your email or password was incorrect"
 });
 
 export const confirmEmailError = createError("ConfirmEmailError", {
@@ -11,6 +11,6 @@ export const confirmEmailError = createError("ConfirmEmailError", {
 export const forgotPasswordLockedError = createError(
   "ForgotPasswordLockedError",
   {
-    message: "Account is locked"
+    message: "Your account is locked"
   }
 );

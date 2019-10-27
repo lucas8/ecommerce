@@ -7,15 +7,19 @@ body {
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Lato", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: #1c1e21;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+::selection {
+  background: #97a3f0; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #97a3f0; /* Gecko Browsers */
 }

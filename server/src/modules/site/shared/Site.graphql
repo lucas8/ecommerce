@@ -1,0 +1,6 @@
+type Site {
+  id: ID!
+  title: String!
+  subdomain: String!
+  owner: User!
+}

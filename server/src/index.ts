@@ -34,7 +34,11 @@ const main = async () => {
 
   const app = await server.start(
     {
-      port: process.env.PORT || 4000
+      port: process.env.PORT || 4000,
+      cors: {
+        credentials: true,
+        origin: process.env.FRONTEND_URL
+      }
     },
     () => signale.success("Server is running on http://localhost:4000")
   );

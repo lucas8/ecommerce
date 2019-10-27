@@ -19,7 +19,7 @@ const App: React.FC<Props> = () => {
   }, []);
 
   if (loading) {
-    return <div>loading...</div>;
+    return <div></div>;
   }
 
   return <Routes />;

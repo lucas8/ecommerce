@@ -11,7 +11,6 @@ import {
   createRefreshToken,
   createAccessToken
 } from "../../../utils/createToken";
-import { userNotFoundError } from "../shared/errorMessages";
 
 interface LoginArgs {
   email: string;
@@ -24,7 +23,7 @@ export const resolvers: ResolverMap = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new userNotFoundError();
+        throw new invalidLogin();
       }
 
       if (!user.confirmed) {
