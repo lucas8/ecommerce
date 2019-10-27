@@ -39,7 +39,7 @@ const InputIcon = styled.img`
 `;
 
 const Input = React.forwardRef(
-  ({ icon, containerStyle, ...props }: any, ref: any) => {
+  ({ icon, containerStyle, ...props }: any, ref: React.Ref<any>) => {
     return (
       <InputWrapper style={{ ...containerStyle }}>
         {icon && <InputIcon src={icon} alt="icon" draggable={false} />}

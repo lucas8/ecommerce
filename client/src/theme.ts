@@ -7,7 +7,8 @@ export const theme = {
   text: {
     default: "#FFFFFF",
     secondary: "#FFFFFF30",
-    alt: "#5268F4"
+    alt: "#5268F4",
+    danger: "#F45252"
   }
 };
 
