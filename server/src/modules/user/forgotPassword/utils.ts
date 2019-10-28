@@ -18,5 +18,5 @@ export const createForgotPasswordLink = async (userId: string) => {
     expiresIn: "20m"
   });
 
-  return `${process.env.FRONTEND_URL}/user/change-password/${id}`;
+  return `${process.env.FRONTEND_URL}/user/change-password?token=${id}`;
 };

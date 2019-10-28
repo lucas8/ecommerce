@@ -17,3 +17,9 @@ export const Danger = styled.p`
   font-size: 18px;
   color: ${theme.text.danger};
 `;
+
+export const Success = styled.p`
+  font-weight: 600;
+  font-size: 18px;
+  color: ${theme.text.success};
+`;

@@ -1,7 +1,7 @@
 import { createError } from "apollo-errors";
 
 export const userNotFoundError = createError("UserNotFoundError", {
-  message: "User not found"
+  message: "That email is not in our system"
 });
 
 export const passwordNotLongEnough = createError("PasswordNotLongEnough", {

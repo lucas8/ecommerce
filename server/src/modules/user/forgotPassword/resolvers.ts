@@ -5,11 +5,11 @@ import {
   createForgotPasswordLink,
   forgotPasswordSchema
 } from "./utils";
-import { userNotFoundError } from "../shared/errorMessages";
 import { verify } from "jsonwebtoken";
 import { formatYupError } from "../../../utils/formatYupError";
 import { hash } from "bcrypt";
 import { sendEmail } from "../../../utils/sendEmail";
+import { userNotFoundError } from "../shared/errorMessages";
 
 interface TokenObject {
   userId: string;
@@ -31,6 +31,8 @@ export const resolvers: ResolverMap = {
       await forgotPasswordLockAccount(user.id);
 
       const forgotPasswordLink = await createForgotPasswordLink(user.id);
+
+      console.log(forgotPasswordLink);
 
       sendEmail(user.email, forgotPasswordLink);
 

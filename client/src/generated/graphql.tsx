@@ -87,6 +87,27 @@ export type User = {
   password: Scalars['String'],
 };
 
+export type ForgotPasswordChangeMutationVariables = {
+  newPassword: Scalars['String'],
+  token: Scalars['String']
+};
+
+
+export type ForgotPasswordChangeMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'forgotPasswordChange'>
+);
+
+export type SendForgotPasswordEmailMutationVariables = {
+  email: Scalars['String']
+};
+
+
+export type SendForgotPasswordEmailMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'sendForgotPasswordEmail'>
+);
+
 export type LoginMutationVariables = {
   email: Scalars['String'],
   password: Scalars['String']
@@ -117,6 +138,32 @@ export type MeQuery = (
 );
 
 
+export const ForgotPasswordChangeDocument = gql`
+    mutation ForgotPasswordChange($newPassword: String!, $token: String!) {
+  forgotPasswordChange(newPassword: $newPassword, token: $token)
+}
+    `;
+export type ForgotPasswordChangeMutationFn = ApolloReactCommon.MutationFunction<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>;
+
+    export function useForgotPasswordChangeMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>) {
+      return ApolloReactHooks.useMutation<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>(ForgotPasswordChangeDocument, baseOptions);
+    }
+export type ForgotPasswordChangeMutationHookResult = ReturnType<typeof useForgotPasswordChangeMutation>;
+export type ForgotPasswordChangeMutationResult = ApolloReactCommon.MutationResult<ForgotPasswordChangeMutation>;
+export type ForgotPasswordChangeMutationOptions = ApolloReactCommon.BaseMutationOptions<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>;
+export const SendForgotPasswordEmailDocument = gql`
+    mutation SendForgotPasswordEmail($email: String!) {
+  sendForgotPasswordEmail(email: $email)
+}
+    `;
+export type SendForgotPasswordEmailMutationFn = ApolloReactCommon.MutationFunction<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>;
+
+    export function useSendForgotPasswordEmailMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>) {
+      return ApolloReactHooks.useMutation<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>(SendForgotPasswordEmailDocument, baseOptions);
+    }
+export type SendForgotPasswordEmailMutationHookResult = ReturnType<typeof useSendForgotPasswordEmailMutation>;
+export type SendForgotPasswordEmailMutationResult = ApolloReactCommon.MutationResult<SendForgotPasswordEmailMutation>;
+export type SendForgotPasswordEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
