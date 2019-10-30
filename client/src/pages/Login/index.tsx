@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PageHeader, PageDescription } from "../../components/Text";
 import { LoginRedirectWrapper, SignupRedirectLink } from "./style";
 import useForm from "react-hook-form";
@@ -11,23 +11,22 @@ import {
   useLoginMutation
 } from "../../generated/graphql";
 import { checkTwoAuth, loginUser } from "../../api";
+import TwoFactor from "../../components/TwoFactor";
 
-interface TParams {
-  history: string | undefined;
-}
-
-export const Login = React.memo(({ history }: RouteComponentProps<TParams>) => {
+export const Login = React.memo(({ history }: RouteComponentProps) => {
   const { handleSubmit, register, errors } = useForm();
-  const { dispatch, state } = useAuthContext();
+  const { dispatch } = useAuthContext();
+  const [hasTwoFactor, setTwoFactor] = useState(false);
 
   const [checkTwoFactor] = useCheckTwoFactorMutation();
   const [login] = useLoginMutation();
 
   const onSubmit = async ({ email, password }: Record<string, any>) => {
-    const hasTwoFactor = await checkTwoAuth(checkTwoFactor, { email });
+    const checkMFA = await checkTwoAuth(checkTwoFactor, { email });
 
-    if (!hasTwoFactor) {
-      await loginUser(login, { email, password });
+    if (!checkMFA) {
+      const response = await loginUser(login, { email, password });
+
       history.push("/dashboard");
     } else {
       dispatch({
@@ -37,11 +36,9 @@ export const Login = React.memo(({ history }: RouteComponentProps<TParams>) => {
           password
         }
       });
-      console.log("2fac on");
+      setTwoFactor(true);
     }
   };
-
-  console.log(state);
 
   return (
     <AuthWrapper>
@@ -54,11 +51,15 @@ export const Login = React.memo(({ history }: RouteComponentProps<TParams>) => {
           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
         </PageDescription>
       </div>
-      <LoginForm
-        onSubmit={handleSubmit(onSubmit)}
-        register={register}
-        errors={errors}
-      />
+      {hasTwoFactor ? (
+        <TwoFactor />
+      ) : (
+        <LoginForm
+          onSubmit={handleSubmit(onSubmit)}
+          register={register}
+          errors={errors}
+        />
+      )}
       <LoginRedirectWrapper>
         <span>
           Don't have an account?{" "}

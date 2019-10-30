@@ -1,11 +1,11 @@
-import { CheckTwoFactorMutationFn, MeDocument, LoginMutationFn } from "../generated/graphql";
-import { LoginArgs } from "../types";
+import { CheckTwoFactorMutationFn, MeDocument, LoginMutationFn, LoginMutationVariables, LoginMutation } from "../generated/graphql";
 import { setAccessToken } from "../accessToken";
 
 type CheckTwoAuthArgs = {
     email: string
 }
 
+// prettier-ignore
 export const checkTwoAuth = async (checkTwoFactor: CheckTwoFactorMutationFn, { email }: CheckTwoAuthArgs): Promise<boolean> => {
     const response = await checkTwoFactor({
         variables: {
@@ -20,11 +20,13 @@ export const checkTwoAuth = async (checkTwoFactor: CheckTwoFactorMutationFn, { e
     }
 }
 
-export const loginUser = async (login: LoginMutationFn, { email, password }: LoginArgs): Promise<void> => {
+// prettier-ignore
+export const loginUser = async (login: LoginMutationFn, { email, password, token }: LoginMutationVariables): Promise<void> => {
     const response = await login({
         variables: {
             email,
-            password
+            password,
+            token
         },
         update: (store: any, { data }: any) => {
             if (!data || !data.login) {

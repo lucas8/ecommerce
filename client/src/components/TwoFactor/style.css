@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+}
+
+.characters {
+  width: 100%;
+  height: 50px;
+}
+
+.character {
+  line-height: 50px;
+  font-size: 36px;
+  background: #5268f430;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  margin-left: 8px;
+  text-align: center;
+  transition: all ease 250ms;
+}
+
+.character--inactive {
+  background: #5268f430;
+  box-shadow: none;
+}
+
+.character--selected {
+  background: #5268f4;
+  transform: scale(1.05);
+}

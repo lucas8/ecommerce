@@ -128,7 +128,8 @@ export type SendForgotPasswordEmailMutation = (
 
 export type LoginMutationVariables = {
   email: Scalars['String'],
-  password: Scalars['String']
+  password: Scalars['String'],
+  token?: Maybe<Scalars['String']>
 };
 
 
@@ -196,8 +197,8 @@ export type SendForgotPasswordEmailMutationHookResult = ReturnType<typeof useSen
 export type SendForgotPasswordEmailMutationResult = ApolloReactCommon.MutationResult<SendForgotPasswordEmailMutation>;
 export type SendForgotPasswordEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>;
 export const LoginDocument = gql`
-    mutation Login($email: String!, $password: String!) {
-  login(email: $email, password: $password) {
+    mutation Login($email: String!, $password: String!, $token: String) {
+  login(email: $email, password: $password, token: $token) {
     user {
       id
       firstName
