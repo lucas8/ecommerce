@@ -1,20 +1,25 @@
 import React from "react";
 import Input from "../../components/Input";
-import { FormErrors } from "../../components/HandleErrors";
+import { FormErrors, GraphqlErrors } from "../../components/HandleErrors";
 import { PurpleButton } from "../../components/Button";
 import key from "../../static/svg/key.svg";
 import email from "../../static/svg/email.svg";
 import { Danger } from "../../components/Text";
 import { FieldError } from "react-hook-form/dist/types";
+import { ApolloError } from "apollo-client";
 
 const LoginForm = ({
   onSubmit,
   register,
-  errors
+  errors,
+  error,
+  twoFactorError
 }: {
   onSubmit(e: React.BaseSyntheticEvent): Promise<void>;
   register: any;
   errors: Partial<Record<string, FieldError>>;
+  error: ApolloError | undefined;
+  twoFactorError: ApolloError | undefined;
 }) => {
   return (
     <form onSubmit={onSubmit} style={{ width: "100%" }}>
@@ -45,6 +50,8 @@ const LoginForm = ({
         })}
       />
       {errors.password && <FormErrors message={errors.password.message!} />}
+      <GraphqlErrors error={error} />
+      <GraphqlErrors error={twoFactorError} />
       <PurpleButton style={{ marginTop: 30 }} type="submit">
         Login to your account
       </PurpleButton>

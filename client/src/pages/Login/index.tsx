@@ -18,11 +18,16 @@ export const Login = React.memo(({ history }: RouteComponentProps) => {
   const { dispatch } = useAuthContext();
   const [hasTwoFactor, setTwoFactor] = useState(false);
 
-  const [checkTwoFactor] = useCheckTwoFactorMutation();
-  const [login] = useLoginMutation();
+  const [
+    checkTwoFactor,
+    { error: twoFactorErrors }
+  ] = useCheckTwoFactorMutation();
+  const [login, { error }] = useLoginMutation();
+
+  console.log(error);
 
   const onSubmit = async ({ email, password }: Record<string, any>) => {
-    const checkMFA = await checkTwoAuth(checkTwoFactor, { email });
+    const checkMFA = await checkTwoAuth(checkTwoFactor, { email, password });
 
     if (!checkMFA) {
       const response = await loginUser(login, { email, password });
@@ -58,6 +63,8 @@ export const Login = React.memo(({ history }: RouteComponentProps) => {
           onSubmit={handleSubmit(onSubmit)}
           register={register}
           errors={errors}
+          error={error}
+          twoFactorError={twoFactorErrors}
         />
       )}
       <LoginRedirectWrapper>

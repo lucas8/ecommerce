@@ -1,15 +1,12 @@
-import { CheckTwoFactorMutationFn, MeDocument, LoginMutationFn, LoginMutationVariables, LoginMutation } from "../generated/graphql";
+import { CheckTwoFactorMutationFn, MeDocument, LoginMutationFn, LoginMutationVariables, CheckTwoFactorMutationVariables } from "../generated/graphql";
 import { setAccessToken } from "../accessToken";
 
-type CheckTwoAuthArgs = {
-    email: string
-}
-
 // prettier-ignore
-export const checkTwoAuth = async (checkTwoFactor: CheckTwoFactorMutationFn, { email }: CheckTwoAuthArgs): Promise<boolean> => {
+export const checkTwoAuth = async (checkTwoFactor: CheckTwoFactorMutationFn, { email, password }: CheckTwoFactorMutationVariables): Promise<boolean> => {
     const response = await checkTwoFactor({
         variables: {
-            email
+            email,
+            password
         }
     });
 

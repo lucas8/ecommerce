@@ -12,7 +12,6 @@ import {
   createRefreshToken,
   createAccessToken
 } from "../../../utils/createToken";
-import { userNotFoundError } from "../shared/errorMessages";
 import { noTokenProvided } from "../signup/errorMessages";
 import { totp } from "speakeasy";
 
@@ -24,17 +23,32 @@ interface LoginArgs {
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    checkTwoFactor: async (_, { email }: LoginArgs) => {
+    checkTwoFactor: async (_, { email, password }: LoginArgs) => {
       const user = await User.findOne({ email });
+
       if (!user) {
-        throw new userNotFoundError();
+        throw new invalidLogin();
+      }
+
+      if (!user.confirmed) {
+        throw new confirmEmailError();
+      }
+
+      if (user.forgotPasswordLocked) {
+        throw new forgotPasswordLockedError();
+      }
+
+      const valid = await compare(password, user.password);
+
+      if (!valid) {
+        throw new invalidLogin();
       }
 
       if (user.hasTwoFactor) {
-        return true;
+        return true
+      } else {
+        return false
       }
-
-      return false;
     },
     login: async (
       _,

@@ -1,6 +1,6 @@
 type Mutation {
   login(email: String!, password: String!, token: String): AuthResponse!
-  checkTwoFactor(email: String!): Boolean!
+  checkTwoFactor(email: String!, password: String!): Boolean!
 }
 
 type AuthResponse {

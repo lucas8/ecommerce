@@ -60,7 +60,8 @@ export type MutationLoginArgs = {
 
 
 export type MutationCheckTwoFactorArgs = {
-  email: Scalars['String']
+  email: Scalars['String'],
+  password: Scalars['String']
 };
 
 
@@ -107,7 +108,8 @@ export type ForgotPasswordChangeMutation = (
 );
 
 export type CheckTwoFactorMutationVariables = {
-  email: Scalars['String']
+  email: Scalars['String'],
+  password: Scalars['String']
 };
 
 
@@ -171,8 +173,8 @@ export type ForgotPasswordChangeMutationHookResult = ReturnType<typeof useForgot
 export type ForgotPasswordChangeMutationResult = ApolloReactCommon.MutationResult<ForgotPasswordChangeMutation>;
 export type ForgotPasswordChangeMutationOptions = ApolloReactCommon.BaseMutationOptions<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>;
 export const CheckTwoFactorDocument = gql`
-    mutation CheckTwoFactor($email: String!) {
-  checkTwoFactor(email: $email)
+    mutation CheckTwoFactor($email: String!, $password: String!) {
+  checkTwoFactor(email: $email, password: $password)
 }
     `;
 export type CheckTwoFactorMutationFn = ApolloReactCommon.MutationFunction<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>;
