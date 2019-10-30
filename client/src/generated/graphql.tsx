@@ -24,6 +24,7 @@ export type Mutation = {
   sendForgotPasswordEmail?: Maybe<Scalars['Boolean']>,
   forgotPasswordChange?: Maybe<Scalars['Boolean']>,
   login: AuthResponse,
+  checkTwoFactor: Scalars['Boolean'],
   logout: Scalars['Boolean'],
   signup?: Maybe<Scalars['Boolean']>,
 };
@@ -53,7 +54,13 @@ export type MutationForgotPasswordChangeArgs = {
 
 export type MutationLoginArgs = {
   email: Scalars['String'],
-  password: Scalars['String']
+  password: Scalars['String'],
+  token?: Maybe<Scalars['String']>
+};
+
+
+export type MutationCheckTwoFactorArgs = {
+  email: Scalars['String']
 };
 
 
@@ -61,13 +68,13 @@ export type MutationSignupArgs = {
   firstName: Scalars['String'],
   lastName: Scalars['String'],
   email: Scalars['String'],
-  password: Scalars['String']
+  password: Scalars['String'],
+  hasTwoFactor?: Maybe<Scalars['Boolean']>
 };
 
 export type Query = {
    __typename?: 'Query',
   me?: Maybe<User>,
-  hello: Scalars['String'],
 };
 
 export type Site = {
@@ -85,6 +92,7 @@ export type User = {
   lastName: Scalars['String'],
   email: Scalars['String'],
   password: Scalars['String'],
+  hasTwoFactor: Scalars['Boolean'],
 };
 
 export type ForgotPasswordChangeMutationVariables = {
@@ -96,6 +104,16 @@ export type ForgotPasswordChangeMutationVariables = {
 export type ForgotPasswordChangeMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'forgotPasswordChange'>
+);
+
+export type CheckTwoFactorMutationVariables = {
+  email: Scalars['String']
+};
+
+
+export type CheckTwoFactorMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'checkTwoFactor'>
 );
 
 export type SendForgotPasswordEmailMutationVariables = {
@@ -121,7 +139,7 @@ export type LoginMutation = (
     & Pick<AuthResponse, 'token'>
     & { user: (
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'hasTwoFactor'>
     ) }
   ) }
 );
@@ -133,7 +151,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'hasTwoFactor'>
   )> }
 );
 
@@ -151,6 +169,19 @@ export type ForgotPasswordChangeMutationFn = ApolloReactCommon.MutationFunction<
 export type ForgotPasswordChangeMutationHookResult = ReturnType<typeof useForgotPasswordChangeMutation>;
 export type ForgotPasswordChangeMutationResult = ApolloReactCommon.MutationResult<ForgotPasswordChangeMutation>;
 export type ForgotPasswordChangeMutationOptions = ApolloReactCommon.BaseMutationOptions<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>;
+export const CheckTwoFactorDocument = gql`
+    mutation CheckTwoFactor($email: String!) {
+  checkTwoFactor(email: $email)
+}
+    `;
+export type CheckTwoFactorMutationFn = ApolloReactCommon.MutationFunction<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>;
+
+    export function useCheckTwoFactorMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>) {
+      return ApolloReactHooks.useMutation<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>(CheckTwoFactorDocument, baseOptions);
+    }
+export type CheckTwoFactorMutationHookResult = ReturnType<typeof useCheckTwoFactorMutation>;
+export type CheckTwoFactorMutationResult = ApolloReactCommon.MutationResult<CheckTwoFactorMutation>;
+export type CheckTwoFactorMutationOptions = ApolloReactCommon.BaseMutationOptions<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>;
 export const SendForgotPasswordEmailDocument = gql`
     mutation SendForgotPasswordEmail($email: String!) {
   sendForgotPasswordEmail(email: $email)
@@ -172,6 +203,7 @@ export const LoginDocument = gql`
       firstName
       lastName
       email
+      hasTwoFactor
     }
     token
   }
@@ -192,6 +224,7 @@ export const MeDocument = gql`
     firstName
     lastName
     email
+    hasTwoFactor
   }
 }
     `;

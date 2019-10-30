@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes } from "./Routes";
 import { setAccessToken } from "./accessToken";
+import { AuthProvider } from "./contexts/Auth";
 
 interface Props {}
 
@@ -22,7 +23,11 @@ const App: React.FC<Props> = () => {
     return <div></div>;
   }
 
-  return <Routes />;
+  return (
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
+  );
 };
 
 export default App;

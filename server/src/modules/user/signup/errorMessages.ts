@@ -11,3 +11,7 @@ export const emailNotLongEnough = createError("EmailNotLongEnough", {
 export const invalidEmail = createError("InvalidEmail", {
   message: "Email must be a valid email"
 });
+
+export const noTokenProvided = createError("NoTwoFactorToken", {
+  message: "No two factor authentication token was provided"
+});

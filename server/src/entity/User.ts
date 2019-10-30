@@ -35,6 +35,12 @@ export class User extends BaseEntity {
   @Column({ default: 0 })
   tokenVersion: number;
 
+  @Column({ default: false })
+  hasTwoFactor: boolean;
+
+  @Column({ nullable: true })
+  twoFactorChallenge: string;
+
   @OneToOne(() => Site, site => site.owner)
   site: Site;
 

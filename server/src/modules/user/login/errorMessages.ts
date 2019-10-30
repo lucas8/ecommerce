@@ -14,3 +14,7 @@ export const forgotPasswordLockedError = createError(
     message: "Your account is locked"
   }
 );
+
+export const incorrectTwoFactor = createError("IncorrectTwoFactor", {
+  message: "Incorrect two factor challenge"
+});

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AuthWrapper from "../../components/AuthWrapper";
 import { PageHeader, Success } from "../../components/Text";
 import Input from "../../components/Input";

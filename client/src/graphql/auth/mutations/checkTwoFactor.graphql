@@ -1,0 +1,3 @@
+mutation CheckTwoFactor($email: String!) {
+  checkTwoFactor(email: $email)
+}
