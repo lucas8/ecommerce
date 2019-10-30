@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthWrapper from "../../components/AuthWrapper";
-import { PageHeader, Success } from "../../components/Text";
+import { Success } from "../../components/Text";
 import Input from "../../components/Input";
 import { PurpleButton } from "../../components/Button";
 import useForm from "react-hook-form";
@@ -26,11 +26,8 @@ const ForgotPasswordPage = React.memo(() => {
   };
 
   return (
-    <AuthWrapper>
+    <AuthWrapper title="Forgot Your Password?">
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-        <div style={{ width: "100%", marginBottom: 30 }}>
-          <PageHeader>Forgot Your Password?</PageHeader>
-        </div>
         <Input
           icon={email}
           placeholder="Enter your email"

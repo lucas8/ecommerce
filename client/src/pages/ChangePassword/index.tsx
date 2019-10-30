@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthWrapper from "../../components/AuthWrapper";
-import { PageHeader, Success } from "../../components/Text";
+import { Success } from "../../components/Text";
 import Input from "../../components/Input";
 import { PurpleButton } from "../../components/Button";
 import useForm from "react-hook-form";
@@ -43,11 +43,8 @@ const ChangePassword = React.memo(({ location }: any) => {
   };
 
   return (
-    <AuthWrapper>
+    <AuthWrapper title="Change Password">
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-        <div style={{ width: "100%", marginBottom: 30 }}>
-          <PageHeader>Change Password</PageHeader>
-        </div>
         <Input
           icon={key}
           placeholder="Enter a password"

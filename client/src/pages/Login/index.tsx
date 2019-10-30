@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { PageHeader, PageDescription } from "../../components/Text";
-import { LoginRedirectWrapper, SignupRedirectLink } from "./style";
 import useForm from "react-hook-form";
 import { RouteComponentProps } from "react-router-dom";
 import AuthWrapper from "../../components/AuthWrapper";
@@ -24,13 +22,11 @@ export const Login = React.memo(({ history }: RouteComponentProps) => {
   ] = useCheckTwoFactorMutation();
   const [login, { error }] = useLoginMutation();
 
-  console.log(error);
-
   const onSubmit = async ({ email, password }: Record<string, any>) => {
     const checkMFA = await checkTwoAuth(checkTwoFactor, { email, password });
 
     if (!checkMFA) {
-      const response = await loginUser(login, { email, password });
+      await loginUser(login, { email, password });
 
       history.push("/dashboard");
     } else {
@@ -46,16 +42,11 @@ export const Login = React.memo(({ history }: RouteComponentProps) => {
   };
 
   return (
-    <AuthWrapper>
-      <div style={{ width: "100%" }}>
-        <PageHeader>
-          Join others creating ecommerce platforms for software
-        </PageHeader>
-        <PageDescription style={{ marginTop: 20 }}>
-          Lorem ipsum dolor sit amet, consectetur cesing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
-        </PageDescription>
-      </div>
+    <AuthWrapper
+      title="Join others creating ecommerce platforms for software"
+      description="Lorem ipsum dolor sit amet, consectetur cesing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim."
+      hasFooter={true}
+    >
       {hasTwoFactor ? (
         <TwoFactor />
       ) : (
@@ -67,15 +58,6 @@ export const Login = React.memo(({ history }: RouteComponentProps) => {
           twoFactorError={twoFactorErrors}
         />
       )}
-      <LoginRedirectWrapper>
-        <span>
-          Don't have an account?{" "}
-          <SignupRedirectLink to="/user/signup">Sign up.</SignupRedirectLink>
-        </span>
-        <SignupRedirectLink to="/user/forgot">
-          Forgot password?
-        </SignupRedirectLink>
-      </LoginRedirectWrapper>
     </AuthWrapper>
   );
 });
