@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes } from "./Routes";
 import { setAccessToken } from "./accessToken";
-import { AuthProvider } from "./contexts/Auth";
+import APIProvider from "./contexts/API";
 
 interface Props {}
 
@@ -24,9 +24,9 @@ const App: React.FC<Props> = () => {
   }
 
   return (
-    <AuthProvider>
+    <APIProvider>
       <Routes />
-    </AuthProvider>
+    </APIProvider>
   );
 };
 

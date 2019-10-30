@@ -1,40 +1,52 @@
-import React, { createContext, useContext, ReactNode, Dispatch } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  Dispatch,
+  useMemo,
+  useState
+} from "react";
 import { LoginArgs } from "../types";
 
-type ReducerActions = {
-  type: "LOGIN";
-  payload: LoginArgs;
+type AuthState = {
+  email: string;
+  password: string;
 };
 
-type ContextType = {
-  state: LoginArgs;
-  dispatch: Dispatch<ReducerActions>;
+type AuthActions = {
+  setAuthState(data: AuthState): void;
 };
 
-const AuthContext = createContext<ContextType | undefined>(undefined);
-
-const initialState = {
-  email: "",
-  password: ""
+type AuthContextValue = {
+  state: AuthState;
+  actions: AuthActions;
 };
 
-const reducer = (state: LoginArgs, action: ReducerActions) => {
-  switch (action.type) {
-    case "LOGIN":
-      return {
-        email: action.payload.email,
-        password: action.payload.password
-      };
-  }
-};
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-interface AuthArgs {
-  children: ReactNode;
+interface AuthProps {
+  children?: ReactNode;
 }
 
-export const AuthProvider = ({ children }: AuthArgs) => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-  const value = { state, dispatch };
+export const AuthProvider = ({ children }: AuthProps) => {
+  const [state, setState] = useState<AuthState>({ email: "", password: "" });
+  const actions = useMemo(
+    () => ({
+      setAuthState: ({ email, password }: AuthState) => {
+        setState({ email, password });
+      }
+    }),
+    []
+  );
+
+  // Memorize the state and dispatch so it will only call when the value gets changed
+  const value = useMemo(
+    () => ({
+      state,
+      actions
+    }),
+    [state, actions]
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

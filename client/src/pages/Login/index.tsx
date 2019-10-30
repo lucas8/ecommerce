@@ -13,7 +13,7 @@ import TwoFactor from "../../components/TwoFactor";
 
 export const Login = React.memo(({ history }: RouteComponentProps) => {
   const { handleSubmit, register, errors } = useForm();
-  const { dispatch } = useAuthContext();
+  const { actions } = useAuthContext();
   const [hasTwoFactor, setTwoFactor] = useState(false);
 
   const [
@@ -30,13 +30,7 @@ export const Login = React.memo(({ history }: RouteComponentProps) => {
 
       history.push("/dashboard");
     } else {
-      dispatch({
-        type: "LOGIN",
-        payload: {
-          email,
-          password
-        }
-      });
+      actions.setAuthState({ email, password });
       setTwoFactor(true);
     }
   };
