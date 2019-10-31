@@ -53,14 +53,14 @@ export type MutationForgotPasswordChangeArgs = {
 
 
 export type MutationLoginArgs = {
-  email: Scalars['String'],
+  usernameOrEmail: Scalars['String'],
   password: Scalars['String'],
   token?: Maybe<Scalars['String']>
 };
 
 
 export type MutationCheckTwoFactorArgs = {
-  email: Scalars['String'],
+  usernameOrEmail: Scalars['String'],
   password: Scalars['String']
 };
 
@@ -108,7 +108,7 @@ export type ForgotPasswordChangeMutation = (
 );
 
 export type CheckTwoFactorMutationVariables = {
-  email: Scalars['String'],
+  usernameOrEmail: Scalars['String'],
   password: Scalars['String']
 };
 
@@ -129,7 +129,7 @@ export type SendForgotPasswordEmailMutation = (
 );
 
 export type LoginMutationVariables = {
-  email: Scalars['String'],
+  usernameOrEmail: Scalars['String'],
   password: Scalars['String'],
   token?: Maybe<Scalars['String']>
 };
@@ -173,8 +173,8 @@ export type ForgotPasswordChangeMutationHookResult = ReturnType<typeof useForgot
 export type ForgotPasswordChangeMutationResult = ApolloReactCommon.MutationResult<ForgotPasswordChangeMutation>;
 export type ForgotPasswordChangeMutationOptions = ApolloReactCommon.BaseMutationOptions<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>;
 export const CheckTwoFactorDocument = gql`
-    mutation CheckTwoFactor($email: String!, $password: String!) {
-  checkTwoFactor(email: $email, password: $password)
+    mutation CheckTwoFactor($usernameOrEmail: String!, $password: String!) {
+  checkTwoFactor(usernameOrEmail: $usernameOrEmail, password: $password)
 }
     `;
 export type CheckTwoFactorMutationFn = ApolloReactCommon.MutationFunction<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>;
@@ -199,8 +199,8 @@ export type SendForgotPasswordEmailMutationHookResult = ReturnType<typeof useSen
 export type SendForgotPasswordEmailMutationResult = ApolloReactCommon.MutationResult<SendForgotPasswordEmailMutation>;
 export type SendForgotPasswordEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>;
 export const LoginDocument = gql`
-    mutation Login($email: String!, $password: String!, $token: String) {
-  login(email: $email, password: $password, token: $token) {
+    mutation Login($usernameOrEmail: String!, $password: String!, $token: String) {
+  login(usernameOrEmail: $usernameOrEmail, password: $password, token: $token) {
     user {
       id
       firstName

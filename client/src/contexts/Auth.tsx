@@ -2,14 +2,12 @@ import React, {
   createContext,
   useContext,
   ReactNode,
-  Dispatch,
   useMemo,
   useState
 } from "react";
-import { LoginArgs } from "../types";
 
 type AuthState = {
-  email: string;
+  usernameOrEmail: string;
   password: string;
 };
 
@@ -29,11 +27,14 @@ interface AuthProps {
 }
 
 export const AuthProvider = ({ children }: AuthProps) => {
-  const [state, setState] = useState<AuthState>({ email: "", password: "" });
+  const [state, setState] = useState<AuthState>({
+    usernameOrEmail: "",
+    password: ""
+  });
   const actions = useMemo(
     () => ({
-      setAuthState: ({ email, password }: AuthState) => {
-        setState({ email, password });
+      setAuthState: ({ usernameOrEmail, password }: AuthState) => {
+        setState({ usernameOrEmail, password });
       }
     }),
     []

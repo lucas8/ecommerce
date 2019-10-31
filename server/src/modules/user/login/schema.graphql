@@ -1,9 +1,0 @@
-type Mutation {
-  login(email: String!, password: String!, token: String): AuthResponse!
-  checkTwoFactor(email: String!, password: String!): Boolean!
-}
-
-type AuthResponse {
-  user: User!
-  token: String!
-}

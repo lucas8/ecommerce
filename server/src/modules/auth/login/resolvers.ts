@@ -16,15 +16,19 @@ import { noTokenProvided } from "../signup/errorMessages";
 import { totp } from "speakeasy";
 
 interface LoginArgs {
-  email: string;
+  usernameOrEmail: string;
   password: string;
   token?: string;
 }
 
 export const resolvers: ResolverMap = {
   Mutation: {
-    checkTwoFactor: async (_, { email, password }: LoginArgs) => {
-      const user = await User.findOne({ email });
+    checkTwoFactor: async (_, { usernameOrEmail, password }: LoginArgs) => {
+      let user = await User.findOne({ email: usernameOrEmail })
+
+      if (!user) {
+        user = await User.findOne({ username: usernameOrEmail })
+      }
 
       if (!user) {
         throw new invalidLogin();
@@ -52,10 +56,14 @@ export const resolvers: ResolverMap = {
     },
     login: async (
       _,
-      { email, password, token }: LoginArgs,
+      { usernameOrEmail, password, token }: LoginArgs,
       { response }: Context
     ) => {
-      const user = await User.findOne({ email });
+      let user = await User.findOne({ email: usernameOrEmail })
+
+      if (!user) {
+        user = await User.findOne({ username: usernameOrEmail })
+      }
 
       if (!user) {
         throw new invalidLogin();

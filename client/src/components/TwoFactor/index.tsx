@@ -20,11 +20,11 @@ const TwoFactor = ({ history }: RouteComponentProps) => {
   const { state } = useAuthContext();
 
   const onSubmit = async ({ token }: formArgs) => {
-    const { email, password } = state;
+    const { usernameOrEmail, password } = state;
 
-    await loginUser(login, { email, password, token });
+    await loginUser(login, { usernameOrEmail, password, token });
 
-    history.push("/dashboard");
+    history.push("/feed");
   };
 
   return (

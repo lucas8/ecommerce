@@ -2,10 +2,10 @@ import { CheckTwoFactorMutationFn, MeDocument, LoginMutationFn, LoginMutationVar
 import { setAccessToken } from "../accessToken";
 
 // prettier-ignore
-export const checkTwoAuth = async (checkTwoFactor: CheckTwoFactorMutationFn, { email, password }: CheckTwoFactorMutationVariables): Promise<boolean> => {
+export const checkTwoAuth = async (checkTwoFactor: CheckTwoFactorMutationFn, { usernameOrEmail, password }: CheckTwoFactorMutationVariables): Promise<boolean> => {
     const response = await checkTwoFactor({
         variables: {
-            email,
+            usernameOrEmail,
             password
         }
     });
@@ -18,10 +18,10 @@ export const checkTwoAuth = async (checkTwoFactor: CheckTwoFactorMutationFn, { e
 }
 
 // prettier-ignore
-export const loginUser = async (login: LoginMutationFn, { email, password, token }: LoginMutationVariables): Promise<void> => {
+export const loginUser = async (login: LoginMutationFn, { usernameOrEmail, password, token }: LoginMutationVariables): Promise<void> => {
     const response = await login({
         variables: {
-            email,
+            usernameOrEmail,
             password,
             token
         },

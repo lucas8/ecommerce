@@ -1,5 +1,5 @@
-mutation Login($email: String!, $password: String!, $token: String) {
-  login(email: $email, password: $password, token: $token) {
+mutation Login($usernameOrEmail: String!, $password: String!, $token: String) {
+  login(usernameOrEmail: $usernameOrEmail, password: $password, token: $token) {
     user {
       id
       firstName

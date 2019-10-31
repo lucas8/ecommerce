@@ -9,7 +9,7 @@ const LoginPageContainer = styled.div`
   height: 100%;
   position: absolute;
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.3fr 1fr;
   grid-template-rows: 1fr;
 
   @media only screen and (max-width: 51em) {
@@ -26,6 +26,7 @@ const LoginFormContainer = styled.div`
   flex-direction: column;
   padding: 20px 50px;
   text-align: left;
+  min-width: 500px;
 `;
 
 const LoginGraphicContainer = styled.div`
@@ -40,7 +41,7 @@ const LoginGraphicContainer = styled.div`
 
 interface Props {
   children: ReactNode;
-  title: string;
+  title: string | ReactNode;
   description?: string;
   hasFooter?: boolean;
 }

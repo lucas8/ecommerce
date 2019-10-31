@@ -25,19 +25,17 @@ const LoginForm = ({
     <form onSubmit={onSubmit} style={{ width: "100%" }}>
       <Input
         icon={email}
-        placeholder="Enter your email"
-        type="email"
-        name="email"
+        placeholder="Enter your email or username"
+        type="text"
+        name="usernameOrEmail"
         ref={register({
-          required: "An Email is Required!",
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-            message: "Invalid email address"
-          }
+          required: "An Email is Required!"
         })}
       />
-      {errors.email && (
-        <Danger style={{ marginTop: 10 }}>{errors.email.message}</Danger>
+      {errors.usernameOrEmail && (
+        <Danger style={{ marginTop: 10 }}>
+          {errors.usernameOrEmail.message}
+        </Danger>
       )}
       <Input
         icon={key}

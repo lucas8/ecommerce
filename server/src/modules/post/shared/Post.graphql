@@ -1,0 +1,8 @@
+type Post {
+  id: ID!
+  name: String!
+  imageUrl: String!
+  price: Float!
+  description: String!
+  owner: User!
+}

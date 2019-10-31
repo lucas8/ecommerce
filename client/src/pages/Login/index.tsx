@@ -22,22 +22,27 @@ export const Login = React.memo(({ history }: RouteComponentProps) => {
   ] = useCheckTwoFactorMutation();
   const [login, { error }] = useLoginMutation();
 
-  const onSubmit = async ({ email, password }: Record<string, any>) => {
-    const checkMFA = await checkTwoAuth(checkTwoFactor, { email, password });
+  const onSubmit = async ({
+    usernameOrEmail,
+    password
+  }: Record<string, any>) => {
+    const checkMFA = await checkTwoAuth(checkTwoFactor, {
+      usernameOrEmail,
+      password
+    });
 
     if (!checkMFA) {
-      await loginUser(login, { email, password });
-
-      history.push("/dashboard");
+      await loginUser(login, { usernameOrEmail, password });
+      history.push("/feed");
     } else {
-      actions.setAuthState({ email, password });
+      actions.setAuthState({ usernameOrEmail, password });
       setTwoFactor(true);
     }
   };
 
   return (
     <AuthWrapper
-      title="Join others creating ecommerce platforms for software"
+      title="Join others creating the first social ecommerce platform"
       description="Lorem ipsum dolor sit amet, consectetur cesing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim."
       hasFooter={true}
     >

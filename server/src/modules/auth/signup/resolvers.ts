@@ -10,6 +10,7 @@ import { generateQRCode } from "../shared/generateQrCode";
 interface SignupArgs {
   firstName: string;
   lastName: string;
+  username: string;
   email: string;
   password: string;
   hasTwoFactor?: boolean;
@@ -25,7 +26,7 @@ export const resolvers: ResolverMap = {
         return formatYupError(err);
       }
 
-      const { email, password, firstName, lastName, hasTwoFactor }: SignupArgs = args;
+      const { username, email, password, firstName, lastName, hasTwoFactor }: SignupArgs = args;
 
       const userAlreadyExists: User | undefined = await User.findOne({ email });
 
@@ -36,11 +37,12 @@ export const resolvers: ResolverMap = {
       const secret = generateSecret({ length: 20 });
 
       console.log(await generateQRCode(secret.base32!, email));
-  
+
       const user: User = User.create({
         email,
         password,
         firstName,
+        username,
         lastName,
         hasTwoFactor,
         twoFactorChallenge: hasTwoFactor ? secret.base32 : undefined
@@ -49,7 +51,7 @@ export const resolvers: ResolverMap = {
       await user.save();
 
       const confirmationLink: string = await createConfirmationEmail(user.id);
-      
+
       sendEmail(user.email, confirmationLink);
 
       return null;

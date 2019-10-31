@@ -5,4 +5,5 @@ type User {
   email: String!
   password: String!
   hasTwoFactor: Boolean!
+  posts: [Post]!
 }
