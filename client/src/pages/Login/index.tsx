@@ -1,134 +1,63 @@
-import React from "react";
-import { PageHeader, PageDescription, Danger } from "../../components/Text";
-import Input from "../../components/Input";
-import email from "../../static/svg/email.svg";
-import {
-  LoginPageContainer,
-  LoginFormContainer,
-  LoginGraphicContainer,
-  LoginRedirectWrapper,
-  SignupRedirectLink
-} from "./style";
-import key from "../../static/svg/key.svg";
-import { PurpleButton } from "../../components/Button";
+import React, { useState } from "react";
 import useForm from "react-hook-form";
-import { useLoginMutation, MeDocument } from "../../generated/graphql";
-import { setAccessToken } from "../../accessToken";
 import { RouteComponentProps } from "react-router-dom";
-import { GraphQLError } from "graphql";
+import AuthWrapper from "../../components/AuthWrapper";
+import { useAuthContext } from "../../contexts/Auth";
+import LoginForm from "./LoginForm";
+import {
+  useCheckTwoFactorMutation,
+  useLoginMutation
+} from "../../generated/graphql";
+import { checkTwoAuth, loginUser } from "../../api";
+import TwoFactor from "../../components/TwoFactor";
 
-interface TParams {
-  history: string | undefined;
-}
-
-export const Login = React.memo(({ history }: RouteComponentProps<TParams>) => {
-  const [login, { error }] = useLoginMutation();
+export const Login = React.memo(({ history }: RouteComponentProps) => {
   const { handleSubmit, register, errors } = useForm();
+  const { actions } = useAuthContext();
+  const [hasTwoFactor, setTwoFactor] = useState(false);
 
-  if (error) {
-    console.log("error", error.graphQLErrors);
-  }
+  const [
+    checkTwoFactor,
+    { error: twoFactorErrors }
+  ] = useCheckTwoFactorMutation();
+  const [login, { error }] = useLoginMutation();
 
-  const onSubmit = async ({ email, password }: Record<string, any>) => {
-    const response = await login({
-      variables: {
-        email,
-        password
-      },
-      update: (store: any, { data }: any) => {
-        if (!data || !data.login) {
-          return null;
-        }
-
-        store.writeQuery({
-          query: MeDocument,
-          data: {
-            me: data.login.user
-          }
-        });
-      }
+  const onSubmit = async ({
+    usernameOrEmail,
+    password
+  }: Record<string, any>) => {
+    const checkMFA = await checkTwoAuth(checkTwoFactor, {
+      usernameOrEmail,
+      password
     });
 
-    if (response && response.data) {
-      setAccessToken(response.data.login.token);
-
-      console.log(response);
-
-      history.push("/dashboard");
+    if (!checkMFA) {
+      await loginUser(login, { usernameOrEmail, password });
+      history.push("/feed");
+    } else {
+      actions.setAuthState({ usernameOrEmail, password });
+      setTwoFactor(true);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <LoginPageContainer>
-        <LoginGraphicContainer />
-        <LoginFormContainer>
-          <div>
-            <PageHeader>
-              Join others creating ecommerce platforms for software
-            </PageHeader>
-            <PageDescription style={{ marginTop: 20 }}>
-              Lorem ipsum dolor sit amet, consectetur cesing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim.
-            </PageDescription>
-          </div>
-          <div style={{ width: "100%" }}>
-            <Input
-              icon={email}
-              placeholder="Enter your email"
-              type="email"
-              name="email"
-              ref={register({
-                required: "An Email is Required!",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "Invalid email address"
-                }
-              })}
-            />
-            {errors.email && (
-              <Danger style={{ marginTop: 10 }}>{errors.email.message}</Danger>
-            )}
-            <Input
-              icon={key}
-              placeholder="Enter your password"
-              type="password"
-              containerStyle={{ marginTop: 30 }}
-              name="password"
-              ref={register({
-                required: "A Password is Required!"
-              })}
-            />
-            {errors.password && (
-              <Danger style={{ marginTop: 10 }}>
-                {errors.password.message}
-              </Danger>
-            )}
-            {error &&
-              error.graphQLErrors.map((x: GraphQLError, i: number) => {
-                return (
-                  <Danger style={{ marginTop: 10 }} key={i}>
-                    {x.message}
-                  </Danger>
-                );
-              })}
-          </div>
-          <PurpleButton type="submit">Login to your account</PurpleButton>
-          <LoginRedirectWrapper>
-            <span>
-              Don't have an account?{" "}
-              <SignupRedirectLink to="/user/signup">
-                Sign up.
-              </SignupRedirectLink>
-            </span>
-            <SignupRedirectLink to="/user/forgot">
-              Forgot password?
-            </SignupRedirectLink>
-          </LoginRedirectWrapper>
-        </LoginFormContainer>
-      </LoginPageContainer>
-    </form>
+    <AuthWrapper
+      title="Join others creating the first social ecommerce platform"
+      description="Lorem ipsum dolor sit amet, consectetur cesing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim."
+      hasFooter={true}
+    >
+      {hasTwoFactor ? (
+        <TwoFactor />
+      ) : (
+        <LoginForm
+          onSubmit={handleSubmit(onSubmit)}
+          register={register}
+          errors={errors}
+          error={error}
+          twoFactorError={twoFactorErrors}
+        />
+      )}
+    </AuthWrapper>
   );
 });
 

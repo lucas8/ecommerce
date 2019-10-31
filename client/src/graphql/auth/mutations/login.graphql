@@ -1,0 +1,12 @@
+mutation Login($usernameOrEmail: String!, $password: String!, $token: String) {
+  login(usernameOrEmail: $usernameOrEmail, password: $password, token: $token) {
+    user {
+      id
+      firstName
+      lastName
+      email
+      hasTwoFactor
+    }
+    token
+  }
+}

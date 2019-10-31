@@ -1,0 +1,10 @@
+type Mutation {
+  signup(
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    hasTwoFactor: Boolean
+    username: String!
+  ): Boolean
+}

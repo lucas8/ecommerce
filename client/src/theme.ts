@@ -8,7 +8,8 @@ export const theme = {
     default: "#FFFFFF",
     secondary: "#FFFFFF30",
     alt: "#5268F4",
-    danger: "#F45252"
+    danger: "#F45252",
+    success: "#50F54D"
   }
 };
 

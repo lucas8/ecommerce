@@ -1,0 +1,8 @@
+type Mutation {
+  newPost(
+    name: String!
+    imageUrl: String!
+    price: Float!
+    description: String!
+  ): Post!
+}

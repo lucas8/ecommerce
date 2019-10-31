@@ -24,6 +24,7 @@ export type Mutation = {
   sendForgotPasswordEmail?: Maybe<Scalars['Boolean']>,
   forgotPasswordChange?: Maybe<Scalars['Boolean']>,
   login: AuthResponse,
+  checkTwoFactor: Scalars['Boolean'],
   logout: Scalars['Boolean'],
   signup?: Maybe<Scalars['Boolean']>,
 };
@@ -52,7 +53,14 @@ export type MutationForgotPasswordChangeArgs = {
 
 
 export type MutationLoginArgs = {
-  email: Scalars['String'],
+  usernameOrEmail: Scalars['String'],
+  password: Scalars['String'],
+  token?: Maybe<Scalars['String']>
+};
+
+
+export type MutationCheckTwoFactorArgs = {
+  usernameOrEmail: Scalars['String'],
   password: Scalars['String']
 };
 
@@ -61,13 +69,13 @@ export type MutationSignupArgs = {
   firstName: Scalars['String'],
   lastName: Scalars['String'],
   email: Scalars['String'],
-  password: Scalars['String']
+  password: Scalars['String'],
+  hasTwoFactor?: Maybe<Scalars['Boolean']>
 };
 
 export type Query = {
    __typename?: 'Query',
   me?: Maybe<User>,
-  hello: Scalars['String'],
 };
 
 export type Site = {
@@ -85,11 +93,45 @@ export type User = {
   lastName: Scalars['String'],
   email: Scalars['String'],
   password: Scalars['String'],
+  hasTwoFactor: Scalars['Boolean'],
 };
 
-export type LoginMutationVariables = {
-  email: Scalars['String'],
+export type ForgotPasswordChangeMutationVariables = {
+  newPassword: Scalars['String'],
+  token: Scalars['String']
+};
+
+
+export type ForgotPasswordChangeMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'forgotPasswordChange'>
+);
+
+export type CheckTwoFactorMutationVariables = {
+  usernameOrEmail: Scalars['String'],
   password: Scalars['String']
+};
+
+
+export type CheckTwoFactorMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'checkTwoFactor'>
+);
+
+export type SendForgotPasswordEmailMutationVariables = {
+  email: Scalars['String']
+};
+
+
+export type SendForgotPasswordEmailMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'sendForgotPasswordEmail'>
+);
+
+export type LoginMutationVariables = {
+  usernameOrEmail: Scalars['String'],
+  password: Scalars['String'],
+  token?: Maybe<Scalars['String']>
 };
 
 
@@ -100,7 +142,7 @@ export type LoginMutation = (
     & Pick<AuthResponse, 'token'>
     & { user: (
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'hasTwoFactor'>
     ) }
   ) }
 );
@@ -112,19 +154,59 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'hasTwoFactor'>
   )> }
 );
 
 
+export const ForgotPasswordChangeDocument = gql`
+    mutation ForgotPasswordChange($newPassword: String!, $token: String!) {
+  forgotPasswordChange(newPassword: $newPassword, token: $token)
+}
+    `;
+export type ForgotPasswordChangeMutationFn = ApolloReactCommon.MutationFunction<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>;
+
+    export function useForgotPasswordChangeMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>) {
+      return ApolloReactHooks.useMutation<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>(ForgotPasswordChangeDocument, baseOptions);
+    }
+export type ForgotPasswordChangeMutationHookResult = ReturnType<typeof useForgotPasswordChangeMutation>;
+export type ForgotPasswordChangeMutationResult = ApolloReactCommon.MutationResult<ForgotPasswordChangeMutation>;
+export type ForgotPasswordChangeMutationOptions = ApolloReactCommon.BaseMutationOptions<ForgotPasswordChangeMutation, ForgotPasswordChangeMutationVariables>;
+export const CheckTwoFactorDocument = gql`
+    mutation CheckTwoFactor($usernameOrEmail: String!, $password: String!) {
+  checkTwoFactor(usernameOrEmail: $usernameOrEmail, password: $password)
+}
+    `;
+export type CheckTwoFactorMutationFn = ApolloReactCommon.MutationFunction<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>;
+
+    export function useCheckTwoFactorMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>) {
+      return ApolloReactHooks.useMutation<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>(CheckTwoFactorDocument, baseOptions);
+    }
+export type CheckTwoFactorMutationHookResult = ReturnType<typeof useCheckTwoFactorMutation>;
+export type CheckTwoFactorMutationResult = ApolloReactCommon.MutationResult<CheckTwoFactorMutation>;
+export type CheckTwoFactorMutationOptions = ApolloReactCommon.BaseMutationOptions<CheckTwoFactorMutation, CheckTwoFactorMutationVariables>;
+export const SendForgotPasswordEmailDocument = gql`
+    mutation SendForgotPasswordEmail($email: String!) {
+  sendForgotPasswordEmail(email: $email)
+}
+    `;
+export type SendForgotPasswordEmailMutationFn = ApolloReactCommon.MutationFunction<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>;
+
+    export function useSendForgotPasswordEmailMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>) {
+      return ApolloReactHooks.useMutation<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>(SendForgotPasswordEmailDocument, baseOptions);
+    }
+export type SendForgotPasswordEmailMutationHookResult = ReturnType<typeof useSendForgotPasswordEmailMutation>;
+export type SendForgotPasswordEmailMutationResult = ApolloReactCommon.MutationResult<SendForgotPasswordEmailMutation>;
+export type SendForgotPasswordEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<SendForgotPasswordEmailMutation, SendForgotPasswordEmailMutationVariables>;
 export const LoginDocument = gql`
-    mutation Login($email: String!, $password: String!) {
-  login(email: $email, password: $password) {
+    mutation Login($usernameOrEmail: String!, $password: String!, $token: String) {
+  login(usernameOrEmail: $usernameOrEmail, password: $password, token: $token) {
     user {
       id
       firstName
       lastName
       email
+      hasTwoFactor
     }
     token
   }
@@ -145,6 +227,7 @@ export const MeDocument = gql`
     firstName
     lastName
     email
+    hasTwoFactor
   }
 }
     `;

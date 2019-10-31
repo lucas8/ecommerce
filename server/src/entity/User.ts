@@ -4,10 +4,11 @@ import {
   Column,
   BeforeInsert,
   Entity,
-  OneToOne
+  OneToMany,
+  JoinColumn
 } from "typeorm";
 import { hash } from "bcrypt";
-import { Site } from "./Site";
+import { Post } from "./Post";
 
 @Entity()
 export class User extends BaseEntity {
@@ -19,6 +20,9 @@ export class User extends BaseEntity {
 
   @Column()
   lastName: string;
+
+  @Column({ unique: true })
+  username: string;
 
   @Column({ unique: true })
   email: string;
@@ -35,8 +39,15 @@ export class User extends BaseEntity {
   @Column({ default: 0 })
   tokenVersion: number;
 
-  @OneToOne(() => Site, site => site.owner)
-  site: Site;
+  @Column({ default: false })
+  hasTwoFactor: boolean;
+
+  @Column({ nullable: true })
+  twoFactorChallenge: string;
+
+  @OneToMany(() => Post, post => post.owner)
+  @JoinColumn()
+  posts: Post[];
 
   @BeforeInsert()
   async hashPasswordBeforeInsert() {
