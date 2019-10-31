@@ -1,0 +1,12 @@
+query Posts {
+  posts {
+    id
+    name
+    imageUrl
+    price
+    description
+    owner {
+      username
+    }
+  }
+}

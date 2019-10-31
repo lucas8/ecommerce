@@ -12,7 +12,7 @@ interface Props {
   location: Location;
 }
 
-const ChangePassword = React.memo(({ location }: any) => {
+const ChangePassword = ({ location }: any) => {
   const { handleSubmit, register, errors } = useForm();
   const [success, setSuccess] = useState(false);
   const [match, setMatch] = useState("");
@@ -77,6 +77,6 @@ const ChangePassword = React.memo(({ location }: any) => {
       </form>
     </AuthWrapper>
   );
-});
+};
 
 export default ChangePassword;
