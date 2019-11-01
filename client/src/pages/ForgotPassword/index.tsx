@@ -8,7 +8,7 @@ import email from "../../static/svg/email.svg";
 import { useSendForgotPasswordEmailMutation } from "../../generated/graphql";
 import { FormErrors, GraphqlErrors } from "../../components/HandleErrors";
 
-const ForgotPasswordPage = React.memo(() => {
+const ForgotPasswordPage = () => {
   const { handleSubmit, register, errors } = useForm();
   const [success, setSuccess] = useState(false);
   const [sendEmail, { error }] = useSendForgotPasswordEmailMutation();
@@ -50,6 +50,6 @@ const ForgotPasswordPage = React.memo(() => {
       </form>
     </AuthWrapper>
   );
-});
+};
 
 export default ForgotPasswordPage;

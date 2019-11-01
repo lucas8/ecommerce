@@ -11,7 +11,7 @@ import {
 import { checkTwoAuth, loginUser } from "../../api";
 import TwoFactor from "../../components/TwoFactor";
 
-export const Login = React.memo(({ history }: RouteComponentProps) => {
+export const Login = ({ history }: RouteComponentProps) => {
   const { handleSubmit, register, errors } = useForm();
   const { actions } = useAuthContext();
   const [hasTwoFactor, setTwoFactor] = useState(false);
@@ -59,6 +59,6 @@ export const Login = React.memo(({ history }: RouteComponentProps) => {
       )}
     </AuthWrapper>
   );
-});
+};
 
 export default Login;

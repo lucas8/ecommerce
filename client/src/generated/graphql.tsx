@@ -19,7 +19,6 @@ export type AuthResponse = {
 
 export type Mutation = {
    __typename?: 'Mutation',
-  newSite: Site,
   confirmEmail?: Maybe<Scalars['Boolean']>,
   sendForgotPasswordEmail?: Maybe<Scalars['Boolean']>,
   forgotPasswordChange?: Maybe<Scalars['Boolean']>,
@@ -27,12 +26,7 @@ export type Mutation = {
   checkTwoFactor: Scalars['Boolean'],
   logout: Scalars['Boolean'],
   signup?: Maybe<Scalars['Boolean']>,
-};
-
-
-export type MutationNewSiteArgs = {
-  title: Scalars['String'],
-  subdomain: Scalars['String']
+  newPost: Post,
 };
 
 
@@ -70,30 +64,44 @@ export type MutationSignupArgs = {
   lastName: Scalars['String'],
   email: Scalars['String'],
   password: Scalars['String'],
-  hasTwoFactor?: Maybe<Scalars['Boolean']>
+  hasTwoFactor?: Maybe<Scalars['Boolean']>,
+  username: Scalars['String']
+};
+
+
+export type MutationNewPostArgs = {
+  name: Scalars['String'],
+  imageUrl: Scalars['String'],
+  price: Scalars['Float'],
+  description: Scalars['String']
+};
+
+export type Post = {
+   __typename?: 'Post',
+  id: Scalars['ID'],
+  name: Scalars['String'],
+  imageUrl: Scalars['String'],
+  price: Scalars['Float'],
+  description: Scalars['String'],
+  owner: User,
 };
 
 export type Query = {
    __typename?: 'Query',
   me?: Maybe<User>,
-};
-
-export type Site = {
-   __typename?: 'Site',
-  id: Scalars['ID'],
-  title: Scalars['String'],
-  subdomain: Scalars['String'],
-  owner: User,
+  posts: Array<Maybe<Post>>,
 };
 
 export type User = {
    __typename?: 'User',
   id: Scalars['ID'],
+  username: Scalars['String'],
   firstName: Scalars['String'],
   lastName: Scalars['String'],
   email: Scalars['String'],
   password: Scalars['String'],
   hasTwoFactor: Scalars['Boolean'],
+  posts: Array<Maybe<Post>>,
 };
 
 export type ForgotPasswordChangeMutationVariables = {
@@ -142,7 +150,7 @@ export type LoginMutation = (
     & Pick<AuthResponse, 'token'>
     & { user: (
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'hasTwoFactor'>
+      & Pick<User, 'id' | 'username' | 'firstName' | 'lastName' | 'email' | 'hasTwoFactor'>
     ) }
   ) }
 );
@@ -154,8 +162,23 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'hasTwoFactor'>
+    & Pick<User, 'id' | 'username' | 'firstName' | 'lastName' | 'email' | 'hasTwoFactor'>
   )> }
+);
+
+export type PostsQueryVariables = {};
+
+
+export type PostsQuery = (
+  { __typename?: 'Query' }
+  & { posts: Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'name' | 'imageUrl' | 'price' | 'description'>
+    & { owner: (
+      { __typename?: 'User' }
+      & Pick<User, 'username'>
+    ) }
+  )>> }
 );
 
 
@@ -203,6 +226,7 @@ export const LoginDocument = gql`
   login(usernameOrEmail: $usernameOrEmail, password: $password, token: $token) {
     user {
       id
+      username
       firstName
       lastName
       email
@@ -224,6 +248,7 @@ export const MeDocument = gql`
     query Me {
   me {
     id
+    username
     firstName
     lastName
     email
@@ -241,3 +266,27 @@ export const MeDocument = gql`
       
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const PostsDocument = gql`
+    query Posts {
+  posts {
+    id
+    name
+    imageUrl
+    price
+    description
+    owner {
+      username
+    }
+  }
+}
+    `;
+
+    export function usePostsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PostsQuery, PostsQueryVariables>) {
+      return ApolloReactHooks.useQuery<PostsQuery, PostsQueryVariables>(PostsDocument, baseOptions);
+    }
+      export function usePostsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PostsQuery, PostsQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<PostsQuery, PostsQueryVariables>(PostsDocument, baseOptions);
+      }
+      
+export type PostsQueryHookResult = ReturnType<typeof usePostsQuery>;
+export type PostsQueryResult = ApolloReactCommon.QueryResult<PostsQuery, PostsQueryVariables>;
