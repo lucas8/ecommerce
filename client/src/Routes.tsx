@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import ForgotPasswordPage from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
 import Feed from "./pages/Feed";
+import Layout from "./components/Layout";
 
 export const Routes: React.FC = () => {
   return (
@@ -19,7 +20,9 @@ export const Routes: React.FC = () => {
             path="/user/change-password"
             component={ChangePassword}
           />
-          <Route exact path="/feed" component={Feed} />
+          <Layout>
+            <Route exact path="/feed" component={Feed} />
+          </Layout>
         </Switch>
       </div>
     </BrowserRouter>

@@ -25,3 +25,21 @@ export const PurpleButton = styled(Button)`
     background: #2939a3;
   }
 `;
+
+export const WhiteButton = styled(Button)`
+  height: 35px;
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all ease 150ms;
+  color: ${theme.text.alt};
+  width: 300px;
+
+  :hover {
+    background: #f4f4f4;
+  }
+
+  :active {
+    background: #e4e4e4;
+  }
+`;

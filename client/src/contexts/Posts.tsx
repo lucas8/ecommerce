@@ -10,7 +10,7 @@ import { usePostsQuery, Post } from "../generated/graphql";
 
 type PostsState = {
   isLoading: boolean;
-  posts?: Post[];
+  posts: Post[];
 };
 
 interface PostsProps {
@@ -23,13 +23,15 @@ export const PostsProvider = ({ children }: PostsProps) => {
   const { data, loading } = usePostsQuery();
 
   const [state, setState] = useState<PostsState>({
-    isLoading: true
+    isLoading: true,
+    posts: []
   });
 
   useEffect(() => {
     if (loading) {
       setState({
-        isLoading: true
+        isLoading: true,
+        posts: []
       });
     } else if (data && data.posts) {
       setState({
@@ -37,7 +39,7 @@ export const PostsProvider = ({ children }: PostsProps) => {
         posts: data.posts as Post[]
       });
     }
-  }, [loading]);
+  }, [loading, data]);
 
   const value = useMemo(
     () => ({

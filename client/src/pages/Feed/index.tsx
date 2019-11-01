@@ -1,13 +1,18 @@
 import React from "react";
 import { usePostsContext } from "../../contexts/Posts";
+import { FeedContainer } from "./style";
+import Post from "../../components/Post";
 
 const Feed = () => {
-  const { posts, isLoading } = usePostsContext();
-  console.log(isLoading);
-  if (!isLoading) {
-    console.log(posts);
-  }
-  return <div>feed</div>;
+  const { posts } = usePostsContext();
+
+  return (
+    <FeedContainer>
+      {posts.map(post => {
+        return <Post post={post} key={post.id} />;
+      })}
+    </FeedContainer>
+  );
 };
 
 export default Feed;
