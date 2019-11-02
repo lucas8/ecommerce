@@ -1,3 +1,5 @@
+import { ThemeProps } from "styled-components";
+
 const theme = {
   mobile: "576px",
   bg: {
@@ -13,5 +15,7 @@ const theme = {
 };
 
 export type ThemeType = typeof theme;
+
+export type StyledThemeType = ThemeProps<ThemeType>;
 
 export default theme;
