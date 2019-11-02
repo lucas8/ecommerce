@@ -1,4 +1,4 @@
-export const theme = {
+const theme = {
   mobile: "576px",
   bg: {
     default: "#F0F4F9",
@@ -11,5 +11,7 @@ export const theme = {
     secondary: "#8F9CB2"
   }
 };
+
+export type ThemeType = typeof theme;
 
 export default theme;

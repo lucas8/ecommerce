@@ -1,5 +1,6 @@
-import { createGlobalStyle, DefaultTheme } from "styled-components";
-import theme from "./theme";
+import { createGlobalStyle, DefaultTheme, ThemeProps } from "styled-components";
+import theme, { ThemeType } from "./theme";
+import { ThemeAttributeBackgroundPropType } from "react-native";
 
 export const GlobalStyles = createGlobalStyle`
     *,
@@ -18,8 +19,8 @@ export const GlobalStyles = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
 
-        background: ${theme.bg.default};
-        color: ${theme.text.default};
+        background: ${({ theme }: ThemeProps<ThemeType>) => theme.bg.default};
+        color: ${({ theme }: ThemeProps<ThemeType>) => theme.text.default};
         text-rendering: optimizeLegibility;
     }
 `;

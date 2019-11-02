@@ -3,7 +3,7 @@ import { TopbarContainer, TopbarLink } from "./style";
 import { ReactComponent as Logo } from "../../static/svg/logo.svg";
 import useMedia from "../../hooks/useMedia";
 import MobileMenu from "../MobileMenu";
-import theme from "../../theme";
+import { useThemeContext } from "../../contexts/Theme";
 
 type Link = {
   name: string;
@@ -19,6 +19,8 @@ interface LinkContainerProps {
 }
 
 const Topbar = ({ layout }: TopbarProps) => {
+  const theme = useThemeContext();
+
   const showTopbarMobile = useMedia(false, [
     `(max-width: ${theme.mobile})`,
     true
