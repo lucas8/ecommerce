@@ -1,4 +1,5 @@
-const theme = {
+export const theme = {
+  mobile: "576px",
   bg: {
     default: "#F0F4F9",
     secondary: "#1E86FF",
