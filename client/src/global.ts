@@ -11,7 +11,6 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        color: #ffffff;
         font-family: -apple-system, BlinkMacSystemFont, "Open Sans", "Montserrat",
             "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
             "Helvetica Neue", sans-serif !important;

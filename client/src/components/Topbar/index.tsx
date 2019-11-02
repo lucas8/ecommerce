@@ -1,8 +1,8 @@
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode } from "react";
 import { TopbarContainer, TopbarLink } from "./style";
 import { ReactComponent as Logo } from "../../static/svg/logo.svg";
 import useMedia from "../../hooks/useMedia";
-import MobileMenu from "../MobileMenu";
+import MobileMenu from "../MobileIcon";
 import { useThemeContext } from "../../contexts/Theme";
 
 type Link = {

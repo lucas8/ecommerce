@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { StyledThemeType } from "../../theme";
 
-export const TopbarContainer = styled.div`
+export const TopbarContainer = styled.nav`
   width: 100%;
   display: flex;
   justify-content: space-between;
