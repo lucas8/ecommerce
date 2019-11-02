@@ -1,15 +1,13 @@
-export const theme = {
+const theme = {
   bg: {
-    default: "#1C1E21",
-    secondary: "#FFFFFF10",
-    alt: "#5268F4"
+    default: "#F0F4F9",
+    secondary: "#1E86FF",
+    alt: "#BBDBFF",
+    border: "#E0E5E9"
   },
   text: {
-    default: "#FFFFFF",
-    secondary: "#FFFFFF30",
-    alt: "#5268F4",
-    danger: "#F45252",
-    success: "#50F54D"
+    default: "#303446",
+    secondary: "#8F9CB2"
   }
 };
 
