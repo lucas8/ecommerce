@@ -4,7 +4,7 @@ import { FormErrors, GraphqlErrors } from "../../components/HandleErrors";
 import { PurpleButton } from "../../components/Button";
 import key from "../../static/svg/key.svg";
 import email from "../../static/svg/email.svg";
-import { Danger } from "../../components/Text";
+import { ResponseField } from "../../components/Text";
 import { FieldError } from "react-hook-form/dist/types";
 import { ApolloError } from "apollo-client";
 
@@ -33,9 +33,9 @@ const LoginForm = ({
         })}
       />
       {errors.usernameOrEmail && (
-        <Danger style={{ marginTop: 10 }}>
+        <ResponseField style={{ marginTop: 10 }} flavor="danger">
           {errors.usernameOrEmail.message}
-        </Danger>
+        </ResponseField>
       )}
       <Input
         icon={key}

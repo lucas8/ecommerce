@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthWrapper from "../../components/AuthWrapper";
-import { Success } from "../../components/Text";
+import { ResponseField } from "../../components/Text";
 import Input from "../../components/Input";
 import { PurpleButton } from "../../components/Button";
 import useForm from "react-hook-form";
@@ -44,7 +44,9 @@ const ForgotPasswordPage = () => {
         {errors.email && <FormErrors message={errors.email.message!} />}
         <GraphqlErrors error={error} />
         {success && (
-          <Success style={{ marginTop: 10 }}>Check your email!</Success>
+          <ResponseField style={{ marginTop: 10 }} flavor="success">
+            Check your email!
+          </ResponseField>
         )}
         <PurpleButton style={{ marginTop: 30 }}>Send Email</PurpleButton>
       </form>

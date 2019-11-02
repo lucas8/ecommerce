@@ -6,7 +6,7 @@ import { PurpleButton } from "../Button";
 import { useAuthContext } from "../../contexts/Auth";
 import { loginUser } from "../../api";
 import { useLoginMutation } from "../../generated/graphql";
-import { Danger } from "../Text";
+import { ResponseField } from "../Text";
 import { GraphqlErrors } from "../HandleErrors";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
@@ -39,7 +39,9 @@ const TwoFactor = ({ history }: RouteComponentProps) => {
         })}
       />
       {errors.token && (
-        <Danger style={{ marginTop: 10 }}>{errors.token.message}</Danger>
+        <ResponseField style={{ marginTop: 10 }} flavor="danger">
+          {errors.token.message}
+        </ResponseField>
       )}
       <GraphqlErrors error={error} />
       <PurpleButton style={{ marginTop: 30 }} type="submit">

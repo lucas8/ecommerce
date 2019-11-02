@@ -1,7 +1,7 @@
 import React from "react";
 import { GraphQLError } from "graphql";
 import { ApolloError } from "apollo-client";
-import { Danger } from "./Text";
+import { ResponseField } from "./Text";
 
 interface Props {
   error: ApolloError | undefined;
@@ -13,9 +13,9 @@ export const GraphqlErrors = React.memo(({ error }: Props) => {
       {error &&
         error.graphQLErrors.map((x: GraphQLError, i: number) => {
           return (
-            <Danger style={{ marginTop: 10 }} key={i}>
-              {x.message}
-            </Danger>
+            <ResponseField style={{ marginTop: 10 }} key={i} flavor="danger">
+              {}
+            </ResponseField>
           );
         })}
     </React.Fragment>
@@ -23,5 +23,9 @@ export const GraphqlErrors = React.memo(({ error }: Props) => {
 });
 
 export const FormErrors = ({ message }: { message: string }) => {
-  return <Danger style={{ marginTop: 10 }}>{message}</Danger>;
+  return (
+    <ResponseField style={{ marginTop: 10 }} flavor="danger">
+      {message}
+    </ResponseField>
+  );
 };

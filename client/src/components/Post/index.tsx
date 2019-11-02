@@ -15,20 +15,23 @@ interface PostProps {
 }
 
 const Post = ({ post }: PostProps) => {
+  const { owner, name, price, imageUrl, description } = post;
+  const { username } = owner;
+
   return (
     <PostContainer>
       <PostHeader>
         <PostHeadContent>
-          <HeadText>{post.owner.username}</HeadText>
-          <SubHeaderText>{post.name}</SubHeaderText>
+          <HeadText>{username}</HeadText>
+          <SubHeaderText>{name}</SubHeaderText>
         </PostHeadContent>
-        <WhiteButton>Purchase &ndash; ${post.price}</WhiteButton>
+        <WhiteButton>Purchase &ndash; ${price}</WhiteButton>
       </PostHeader>
       <PostContent>
-        <PostImage src={post.imageUrl} alt={post.name} />
+        <PostImage src={imageUrl} alt={name} />
         <Paragraph>
-          <Bold>{post.owner.username} </Bold>
-          {post.description}
+          <Bold>{username} </Bold>
+          {description}
         </Paragraph>
       </PostContent>
     </PostContainer>

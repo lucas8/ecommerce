@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "../theme";
 
 export const PageHeader = styled.h3`
@@ -36,14 +36,22 @@ export const Paragraph = styled.p`
   font-weight: normal;
 `;
 
-export const Danger = styled.p`
-  font-weight: 600;
-  font-size: 18px;
-  color: ${theme.text.danger};
-`;
+interface ResponseFieldProps {
+  flavor: "danger" | "success";
+}
 
-export const Success = styled.p`
+export const ResponseField = styled.p<ResponseFieldProps>`
   font-weight: 600;
   font-size: 18px;
-  color: ${theme.text.success};
+
+  ${props =>
+    props.flavor === "danger" &&
+    css`
+      color: ${theme.text.danger};
+    `}
+  ${props =>
+    props.flavor === "success" &&
+    css`
+      color: ${theme.text.success};
+    `}
 `;

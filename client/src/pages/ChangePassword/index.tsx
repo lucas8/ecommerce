@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthWrapper from "../../components/AuthWrapper";
-import { Success } from "../../components/Text";
+import { ResponseField } from "../../components/Text";
 import Input from "../../components/Input";
 import { PurpleButton } from "../../components/Button";
 import useForm from "react-hook-form";
@@ -71,7 +71,9 @@ const ChangePassword = ({ location }: any) => {
         {match && <FormErrors message={match} />}
         <GraphqlErrors error={error} />
         {success && (
-          <Success style={{ marginTop: 10 }}>Password changed!</Success>
+          <ResponseField style={{ marginTop: 10 }} flavor="success">
+            Password changed!
+          </ResponseField>
         )}
         <PurpleButton style={{ marginTop: 30 }}>Change Password</PurpleButton>
       </form>
