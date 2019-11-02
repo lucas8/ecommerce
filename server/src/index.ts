@@ -11,6 +11,7 @@ import { RefreshRoute } from "./routes/refreshRoute";
 import { GraphQLSchema } from "graphql";
 
 const main = async () => {
+  // TODO: Create a production envoirment
   await createConnection();
 
   const server: GraphQLServer = new GraphQLServer({
