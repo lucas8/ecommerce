@@ -2,6 +2,7 @@ import { ThemeProps } from "styled-components";
 
 const theme = {
   mobile: "576px",
+  shadow: "0 2px 8px 0 rgba(225,225,225,0.50)",
   bg: {
     default: "#F0F4F9",
     secondary: "#1E86FF",

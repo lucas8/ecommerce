@@ -1,15 +1,12 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { StyledMenuIcon, MenuWrapper } from "./style";
 import { useLayoutContext } from "../../contexts/Layout";
 
-interface MobileMenuProps {
-  children?: ReactNode;
-}
-
-const MobileMenu = ({ children }: MobileMenuProps) => {
-  const { actions, state } = useLayoutContext();
-  const { setIsMobileOpen } = actions;
-  const { isMobileOpen } = state;
+const MobileIcon = () => {
+  const {
+    actions: { setIsMobileOpen },
+    state: { isMobileOpen }
+  } = useLayoutContext();
 
   return (
     <MenuWrapper open={isMobileOpen}>
@@ -26,4 +23,4 @@ const MobileMenu = ({ children }: MobileMenuProps) => {
   );
 };
 
-export default MobileMenu;
+export default MobileIcon;

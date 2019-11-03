@@ -1,14 +1,11 @@
 import React, { ReactNode } from "react";
-import { TopbarContainer, TopbarLink } from "./style";
+import { TopbarContainer } from "./style";
 import { ReactComponent as Logo } from "../../static/svg/logo.svg";
 import useMedia from "../../hooks/useMedia";
-import MobileMenu from "../MobileIcon";
+import MobileIcon from "../MobileIcon";
 import { useThemeContext } from "../../contexts/Theme";
-
-type Link = {
-  name: string;
-  href: string;
-};
+import { Link } from "../Layout";
+import { NavBarLink } from "../Text";
 
 interface TopbarProps {
   layout: Link[];
@@ -27,11 +24,7 @@ const Topbar = ({ layout }: TopbarProps) => {
   ]);
 
   const LinkContainer = ({ children }: LinkContainerProps) =>
-    showTopbarMobile ? (
-      <MobileMenu>{children}</MobileMenu>
-    ) : (
-      <div>{children}</div>
-    );
+    showTopbarMobile ? <MobileIcon /> : <div>{children}</div>;
 
   return (
     <TopbarContainer>
@@ -39,9 +32,9 @@ const Topbar = ({ layout }: TopbarProps) => {
       <LinkContainer>
         {layout.map((link, i) => {
           return (
-            <TopbarLink key={i} to={link.href}>
+            <NavBarLink key={i} to={link.href}>
               {link.name}
-            </TopbarLink>
+            </NavBarLink>
           );
         })}
       </LinkContainer>

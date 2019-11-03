@@ -2,6 +2,7 @@ import React, { ReactNode, Fragment } from "react";
 import { Helmet } from "react-helmet";
 import Topbar from "../Topbar";
 import styled from "styled-components";
+import MobileMenu from "../MobileMenu";
 
 const topBarLayout = [
   {
@@ -18,6 +19,11 @@ const topBarLayout = [
   }
 ];
 
+export type Link = {
+  name: string;
+  href: string;
+};
+
 interface LayoutProps {
   children: ReactNode;
   title?: string;
@@ -32,6 +38,7 @@ const Layout = ({ children, title }: LayoutProps) => {
       </Helmet>
       <Content>
         <Topbar layout={topBarLayout} />
+        <MobileMenu layout={topBarLayout} />
         {children}
       </Content>
     </Fragment>
