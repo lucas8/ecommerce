@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { StyledThemeType } from "../theme";
 
 export const NavBarLink = styled(Link)`
-  font-size: 16px;
+  font-size: 1rem;
   color: ${({ theme }: StyledThemeType) => theme.text.secondary};
   margin-left: 35px;
   text-decoration: none;

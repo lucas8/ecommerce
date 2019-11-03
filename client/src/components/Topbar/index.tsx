@@ -32,7 +32,11 @@ const Topbar = ({ layout }: TopbarProps) => {
       <LinkContainer>
         {layout.map((link, i) => {
           return (
-            <NavBarLink key={i} to={link.href}>
+            <NavBarLink
+              key={i}
+              to={link.href}
+              aria-label={link.name.toLowerCase()}
+            >
               {link.name}
             </NavBarLink>
           );

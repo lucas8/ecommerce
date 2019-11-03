@@ -17,9 +17,12 @@ const MobileMenu = ({ layout }: MobileMenuProps) => {
   const props = useSpring({
     opacity: isMobileOpen ? 1 : 0,
     height: isMobileOpen ? "auto" : 0,
-    transform: isMobileOpen ? "scale(1)" : "scale(0)",
+    transform: isMobileOpen ? "translateY(-5px)" : "translateY(0)",
     marginTop: isMobileOpen ? "15px" : "0px",
-    marginBottom: isMobileOpen ? "15px" : "0px"
+    marginBottom: isMobileOpen ? "15px" : "0px",
+    config: {
+      duration: 150
+    }
   });
 
   return (
@@ -29,7 +32,12 @@ const MobileMenu = ({ layout }: MobileMenuProps) => {
         <Divider />
         {layout.map((link, i) => {
           return (
-            <NavBarLink key={i} to={link.href} style={{ marginLeft: 0 }}>
+            <NavBarLink
+              key={i}
+              to={link.href}
+              style={{ marginLeft: 0 }}
+              aria-label={link.name.toLowerCase()}
+            >
               {link.name}
             </NavBarLink>
           );
