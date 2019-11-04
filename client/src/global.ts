@@ -11,9 +11,8 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        font-family: -apple-system, BlinkMacSystemFont, "Open Sans", "Montserrat",
-            "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-            "Helvetica Neue", sans-serif !important;
+        font-family: ${({ theme }: StyledThemeType) =>
+          theme.fonts.body} !important;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
 

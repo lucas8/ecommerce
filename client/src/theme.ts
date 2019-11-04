@@ -7,11 +7,16 @@ const theme = {
     default: "#F0F4F9",
     secondary: "#1E86FF",
     alt: "#BBDBFF",
-    border: "#E0E5E9"
+    border: "#E0E5E9",
+    hoverBlue: "#1774E1"
   },
   text: {
     default: "#303446",
     secondary: "#8F9CB2"
+  },
+  fonts: {
+    header: "'Montserrat', sans-serif",
+    body: "'Open Sans', sans-serif"
   }
 };
 

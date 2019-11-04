@@ -1,17 +1,26 @@
 import React from "react";
-import { usePostsContext } from "../../contexts/Posts";
 import Layout from "../../components/Layout";
+import { TitleText, DescriptionText } from "../../components/Typography";
+import { StyledButton } from "../../components/Button";
+import { ReactComponent as Plus } from "../../static/svg/plus.svg";
+import { FeedHeadContainer } from "./style";
 
 const Feed = () => {
-  const { posts } = usePostsContext();
-
   return (
     <Layout title="Feed">
-      <div>
-        {posts.map(post => {
-          return <div key={post.id}>{post.name}</div>;
-        })}
-      </div>
+      <FeedHeadContainer>
+        <div>
+          <TitleText>Your Feed</TitleText>
+          <DescriptionText style={{ margin: "15px 0" }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor.
+          </DescriptionText>
+        </div>
+        <StyledButton>
+          New Post
+          <Plus className="icon" />
+        </StyledButton>
+      </FeedHeadContainer>
     </Layout>
   );
 };

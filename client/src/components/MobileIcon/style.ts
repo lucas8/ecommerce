@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledThemeType, ThemeType } from "../../theme";
+import { ThemeType } from "../../theme";
 
 export const StyledMenuIcon = styled.button<{ open: boolean }>`
   transform: scale(0.5);

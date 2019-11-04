@@ -3,7 +3,7 @@ import { useLayoutContext } from "../../contexts/Layout";
 import { StyledMenu, MobileMenuHeader, Divider } from "./style";
 import { useSpring, animated as a } from "react-spring";
 import { Link } from "../Layout";
-import { NavBarLink } from "../Text";
+import { NavBarLink } from "../Link";
 
 interface MobileMenuProps {
   layout: Link[];
@@ -27,7 +27,7 @@ const MobileMenu = ({ layout }: MobileMenuProps) => {
 
   return (
     <a.div style={props}>
-      <StyledMenu>
+      <StyledMenu open={isMobileOpen}>
         <MobileMenuHeader>account</MobileMenuHeader>
         <Divider />
         {layout.map((link, i) => {

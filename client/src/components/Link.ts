@@ -10,7 +10,7 @@ export const NavBarLink = styled(Link)`
   transition: all ease-in-out 150ms;
   padding: 6px;
   border-radius: 6px;
-  outline: none;
+  outline: 0 !important;
   :hover {
     background: ${({ theme }: StyledThemeType) => theme.bg.border};
   }

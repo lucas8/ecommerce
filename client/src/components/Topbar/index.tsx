@@ -5,7 +5,7 @@ import useMedia from "../../hooks/useMedia";
 import MobileIcon from "../MobileIcon";
 import { useThemeContext } from "../../contexts/Theme";
 import { Link } from "../Layout";
-import { NavBarLink } from "../Text";
+import { NavBarLink } from "../Link";
 
 interface TopbarProps {
   layout: Link[];

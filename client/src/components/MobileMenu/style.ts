@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { StyledThemeType } from "../../theme";
 
-export const StyledMenu = styled.nav`
-  display: flex;
+export const StyledMenu = styled.nav<{ open: boolean }>`
+  display: ${({ open }) => (open ? "flex" : "none")};
   box-shadow: ${({ theme }: StyledThemeType) => theme.shadow};
   flex-direction: column;
   justify-content: center;
