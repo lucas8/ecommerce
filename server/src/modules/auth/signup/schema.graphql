@@ -4,7 +4,7 @@ type Mutation {
     lastName: String!
     email: String!
     password: String!
-    hasTwoFactor: Boolean = false!
+    hasTwoFactor: Boolean = false
     username: String!
   ): Boolean
 }
