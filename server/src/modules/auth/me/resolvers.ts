@@ -1,4 +1,4 @@
-import { ResolverMap, Context } from "../../../utils/types";
+import { ResolverMap, Context } from "../../../types/types";
 import { User } from "../../../entity/User";
 import { createMiddleware } from "../../../utils/createMiddleware";
 import middleware from "./middleware";

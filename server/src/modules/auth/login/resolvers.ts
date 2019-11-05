@@ -1,4 +1,4 @@
-import { ResolverMap, Context } from "../../../utils/types";
+import { ResolverMap, Context } from "../../../types/types";
 import { User } from "../../../entity/User";
 import {
   invalidLogin,
@@ -15,19 +15,16 @@ import {
 import { noTokenProvided } from "../signup/errorMessages";
 import { totp } from "speakeasy";
 
-interface LoginArgs {
-  usernameOrEmail: string;
-  password: string;
-  token?: string;
-}
-
 export const resolvers: ResolverMap = {
   Mutation: {
-    checkTwoFactor: async (_, { usernameOrEmail, password }: LoginArgs) => {
-      let user = await User.findOne({ email: usernameOrEmail })
+    checkTwoFactor: async (
+      _,
+      { usernameOrEmail, password }: GQL.ICheckTwoFactorOnMutationArguments
+    ) => {
+      let user = await User.findOne({ email: usernameOrEmail });
 
       if (!user) {
-        user = await User.findOne({ username: usernameOrEmail })
+        user = await User.findOne({ username: usernameOrEmail });
       }
 
       if (!user) {
@@ -49,20 +46,20 @@ export const resolvers: ResolverMap = {
       }
 
       if (user.hasTwoFactor) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     },
     login: async (
       _,
-      { usernameOrEmail, password, token }: LoginArgs,
+      { usernameOrEmail, password, token }: GQL.ILoginOnMutationArguments,
       { response }: Context
     ) => {
-      let user = await User.findOne({ email: usernameOrEmail })
+      let user = await User.findOne({ email: usernameOrEmail });
 
       if (!user) {
-        user = await User.findOne({ username: usernameOrEmail })
+        user = await User.findOne({ username: usernameOrEmail });
       }
 
       if (!user) {

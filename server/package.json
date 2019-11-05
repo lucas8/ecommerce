@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "description": "ecommerce server",
   "scripts": {
-    "dev": "ts-node-dev --ignore-watch node_modules --respawn src/index.ts"
+    "dev": "ts-node-dev --ignore-watch node_modules --respawn src/index.ts",
+    "gen": "ts-node src/scripts/genTypes.ts"
   },
   "dependencies": {
+    "@gql2ts/from-schema": "^1.10.1",
     "@sendgrid/helpers": "^6.4.0",
     "@sendgrid/mail": "^6.4.0",
     "apollo-errors": "^1.9.0",

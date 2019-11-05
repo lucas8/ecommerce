@@ -1,4 +1,4 @@
-import { Resolver } from "../../../utils/types";
+import { Resolver } from "../../../types/types";
 
 export default async (
   resolver: Resolver,

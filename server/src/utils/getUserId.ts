@@ -1,4 +1,4 @@
-import { Context } from "./types";
+import { Context } from "../types/types";
 import { verify } from "jsonwebtoken";
 
 interface Token {
