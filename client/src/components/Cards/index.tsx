@@ -3,11 +3,12 @@ import {
   CardContainer,
   CardImage,
   CardContentContainer,
-  CardTitle
+  CardTitle,
+  SkeletonContainer,
+  SkeletonContent
 } from "./style";
 import { BodyText } from "../Typography";
 import { Post } from "../../generated/graphql";
-import useMedia from "../../hooks/useMedia";
 
 type BigCardProps = any & {
   post: Post;
@@ -24,5 +25,14 @@ export const BigCard = ({ post, ...rest }: BigCardProps) => {
         <BodyText>{description}</BodyText>
       </CardContentContainer>
     </CardContainer>
+  );
+};
+
+export const SkeletonCard = () => {
+  return (
+    <SkeletonContainer>
+      <SkeletonContent width={250} height={30} />
+      <SkeletonContent width={315} height={15} />
+    </SkeletonContainer>
   );
 };

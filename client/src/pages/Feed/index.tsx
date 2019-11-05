@@ -1,14 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Layout from "../../components/Layout";
 import { TitleText, DescriptionText } from "../../components/Typography";
 import { StyledButton } from "../../components/Button";
 import { ReactComponent as Plus } from "../../static/svg/plus.svg";
 import { FeedHeadContainer, FeaturedPosts } from "./style";
-import { BigCard } from "../../components/Cards";
+import { BigCard, SkeletonCard } from "../../components/Cards";
 import { usePostsContext } from "../../contexts/Posts";
 
 const Feed = () => {
-  const { posts } = usePostsContext();
+  const { posts, isLoading } = usePostsContext();
 
   return (
     <Layout title="Feed">
@@ -26,12 +26,26 @@ const Feed = () => {
         </StyledButton>
       </FeedHeadContainer>
       <FeaturedPosts>
-        {posts.map(post => {
-          return <BigCard post={post} key={post.id} />;
-        })}
+        {isLoading ? (
+          <SkeletonCards />
+        ) : (
+          posts.map(post => {
+            return <BigCard post={post} key={post.id} />;
+          })
+        )}
       </FeaturedPosts>
     </Layout>
   );
 };
 
 export default Feed;
+
+const SkeletonCards = () => {
+  return (
+    <Fragment>
+      <SkeletonCard />
+      <SkeletonCard />
+      <SkeletonCard />
+    </Fragment>
+  );
+};

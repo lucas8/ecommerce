@@ -7,17 +7,15 @@ interface CardContainerProps {
 }
 
 export const CardContainer = styled.div<CardContainerProps>`
-  min-width: ${({ flavor }: CardContainerProps) =>
-    flavor == "LARGE" ? "400px" : "370px"};
   height: ${({ flavor }: CardContainerProps) =>
-    flavor == "LARGE" ? "300px" : "130px"};
+    flavor === "LARGE" ? "300px" : "130px"};
   border-radius: 6px;
   background: #fff;
   overflow: hidden;
 
 
   ${({ flavor }: CardContainerProps) =>
-    flavor == "LARGE" &&
+    flavor === "LARGE" &&
     css`
       display: flex;
       justify-content: flex-start;
@@ -46,4 +44,51 @@ export const CardContentContainer = styled.div`
 export const CardTitle = styled(BodyTitleText)`
   font-size: 1.5rem;
   font-weight: bold;
+`;
+
+export const SkeletonContainer = styled.div`
+  height: 300px;
+  background: white;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+`;
+
+type SkeletonContent = {
+  width: number;
+  height: number;
+};
+
+export const SkeletonContent = styled.div<SkeletonContent>`
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
+  height: 30px;
+  background: red;
+  border-radius: 6px;
+  margin-left: 20px;
+
+  animation: pulse 2s ease-in-out infinite;
+
+  :first-child {
+    margin-bottom: 10px;
+  }
+
+  :last-child {
+    margin-bottom: 20px;
+  }
+
+  @keyframes pulse {
+    0% {
+      background: #f7f7f7;
+    }
+    50% {
+      background: #efefef;
+    }
+    100% {
+      background: #f7f7f7;
+    }
+  }
 `;

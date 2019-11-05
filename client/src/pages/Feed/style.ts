@@ -15,6 +15,6 @@ export const FeedHeadContainer = styled.div`
 export const FeaturedPosts = styled.div`
   margin-top: 15px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 1rem;
 `;
