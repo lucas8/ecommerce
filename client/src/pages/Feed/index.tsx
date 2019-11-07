@@ -6,7 +6,6 @@ import { ReactComponent as Plus } from "../../static/svg/plus.svg";
 import { FeedHeadContainer, FeaturedPosts } from "./style";
 import { BigCard, SkeletonCard } from "../../components/Cards";
 import { usePostsContext } from "../../contexts/Posts";
-import { ProfilesClip } from "../../components/ProfilesChip";
 
 const Feed = () => {
   const { posts, isLoading } = usePostsContext();
