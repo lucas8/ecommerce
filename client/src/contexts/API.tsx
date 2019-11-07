@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { PostsProvider } from "./Posts";
 import { LayoutProvider } from "./Layout";
+import { MeProvider } from "./Me";
 
 interface APIProviderProps {
   children: ReactNode;
@@ -8,9 +9,11 @@ interface APIProviderProps {
 
 const APIProvider = ({ children }: APIProviderProps) => {
   return (
-    <LayoutProvider>
-      <PostsProvider>{children}</PostsProvider>
-    </LayoutProvider>
+    <MeProvider>
+      <LayoutProvider>
+        <PostsProvider>{children}</PostsProvider>
+      </LayoutProvider>
+    </MeProvider>
   );
 };
 

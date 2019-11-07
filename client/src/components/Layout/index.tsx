@@ -3,21 +3,7 @@ import { Helmet } from "react-helmet";
 import Topbar from "../Topbar";
 import styled from "styled-components";
 import MobileMenu from "../MobileMenu";
-
-const topBarLayout = [
-  {
-    name: "Feed",
-    href: "/feed"
-  },
-  {
-    name: "Messages",
-    href: "/messages"
-  },
-  {
-    name: "Account",
-    href: "/account"
-  }
-];
+import { useMeContext } from "../../contexts/Me";
 
 export type Link = {
   name: string;
@@ -30,6 +16,24 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title }: LayoutProps) => {
+  const { me } = useMeContext();
+
+  const topBarLayout = [
+    {
+      name: "Feed",
+      href: "/feed"
+    },
+    {
+      name: "Messages",
+      href: "/messages"
+    },
+    {
+      name: "Account",
+      // Fallback to feed if user is not fetched yet
+      href: me ? `/@${me.username}` : "/feed"
+    }
+  ];
+
   return (
     <Fragment>
       <Helmet>
