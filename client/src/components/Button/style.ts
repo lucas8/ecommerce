@@ -1,16 +1,28 @@
-import styled from "styled-components";
-import { StyledThemeType } from "../theme";
+import styled, { css } from "styled-components";
+import { StyledThemeType, ThemeType } from "../../theme";
 
-export const StyledButton = styled.button`
+interface StyledButton {
+  flavor?: "LOGIN";
+  isLoading: boolean;
+}
+
+export const StyledButton = styled.button<StyledButton>`
+  position: relative;
   font-size: 1.2rem;
   border: none;
   outline: none;
   font-weight: 600;
-  color: #fff;
+  color: ${({ isLoading }) => (isLoading ? "#ffffff50" : "#fff")};
   border-radius: 6px;
   padding: 0 20px;
   height: 40px;
-  background: ${({ theme }: StyledThemeType) => theme.bg.secondary};
+  background: ${({
+    theme,
+    isLoading
+  }: {
+    theme: ThemeType;
+    isLoading: boolean;
+  }) => (isLoading ? theme.bg.hoverBlue : theme.bg.secondary)};
   display: flex;
   flex: none;
   align-items: center;
@@ -47,4 +59,11 @@ export const StyledButton = styled.button`
   @media (max-width: ${({ theme }: StyledThemeType) => theme.mobile}) {
     width: 100%;
   }
+
+  ${({ flavor }) =>
+    flavor === "LOGIN" &&
+    css`
+      width: 100%;
+      margin-top: 30px;
+    `}
 `;

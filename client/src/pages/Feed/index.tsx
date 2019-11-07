@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Layout from "../../components/Layout";
 import { TitleText, DescriptionText } from "../../components/Typography";
-import { StyledButton } from "../../components/Button";
+import Button from "../../components/Button";
 import { ReactComponent as Plus } from "../../static/svg/plus.svg";
 import { FeedHeadContainer, FeaturedPosts } from "./style";
 import { BigCard, SkeletonCard } from "../../components/Cards";
@@ -20,10 +20,10 @@ const Feed = () => {
             eiusmod tempor.
           </DescriptionText>
         </div>
-        <StyledButton>
+        <Button>
           New Post
           <Plus className="icon" />
-        </StyledButton>
+        </Button>
       </FeedHeadContainer>
       <FeaturedPosts>
         {isLoading ? (

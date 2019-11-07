@@ -12,7 +12,8 @@ const theme = {
   },
   text: {
     default: "#303446",
-    secondary: "#8F9CB2"
+    secondary: "#8F9CB2",
+    danger: "#F25C54"
   },
   fonts: {
     header: "'Montserrat', sans-serif",

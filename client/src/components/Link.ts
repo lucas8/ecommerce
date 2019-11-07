@@ -15,3 +15,9 @@ export const NavBarLink = styled(Link)`
     background: ${({ theme }: StyledThemeType) => theme.bg.border};
   }
 `;
+
+export const StyledLink = styled(Link)`
+  color: ${({ theme }: StyledThemeType) => theme.bg.secondary};
+  text-decoration: none;
+  outline: 0 !important;
+`;
