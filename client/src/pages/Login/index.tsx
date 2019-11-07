@@ -5,13 +5,26 @@ import Button from "../../components/Button";
 import { StyledLoginContainer, StyledForm } from "./style";
 import { TitleText, DescriptionText } from "../../components/Typography";
 import { StyledLink } from "../../components/Link";
+import { useMeContext } from "../../contexts/Me";
+import { RouteComponentProps } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ history }: RouteComponentProps) => {
   const [isLoading, setLoading] = useState(false);
   const { register: loginRef, handleSubmit, errors } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const {
+    actions: { login }
+  } = useMeContext();
+
+  const onSubmit = async ({ email, password }: any) => {
     setLoading(true);
+
+    const response = await login(email, password);
+
+    if (response.isAuthed) {
+      history.push("/feed");
+    }
+
+    console.log(response);
   };
 
   return (
@@ -34,6 +47,7 @@ const Login = () => {
           label="Password:"
           ref={loginRef({ required: "A Password is Required!" })}
           error={errors.password}
+          type="password"
         />
         <Button flavor="LOGIN" type="submit" isLoading={isLoading}>
           {isLoading ? "logging in" : "login"}

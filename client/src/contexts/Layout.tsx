@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
 
-export type LayoutState = {
+type LayoutState = {
   isMobileOpen: boolean;
 };
 
-export type LayoutActions = {
+type LayoutActions = {
   setIsMobileOpen(val: boolean): void;
 };
 
-export type LayoutContextValue = {
+type LayoutContextValue = {
   state: LayoutState;
   actions: LayoutActions;
 };

@@ -16,7 +16,9 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title }: LayoutProps) => {
-  const { me } = useMeContext();
+  const {
+    state: { me }
+  } = useMeContext();
 
   const topBarLayout = [
     {

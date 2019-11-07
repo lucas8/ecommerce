@@ -1,4 +1,4 @@
-import React, { Fragment, forwardRef, useState } from "react";
+import React, { Fragment, forwardRef } from "react";
 import {
   StyledInput,
   StyledInputContainer,
@@ -8,7 +8,6 @@ import {
 import { FieldError } from "react-hook-form/dist/types";
 
 type InputProps = {
-  inputName: string;
   label: string;
   error: FieldError | undefined;
 } & any;
@@ -18,13 +17,13 @@ const Input = forwardRef(
     return (
       <Fragment>
         <StyledInputContainer>
-          <StyledInputLabel htmlFor={`input-${inputName}`}>
+          <StyledInputLabel htmlFor={`input-${rest.name}`}>
             {label}
           </StyledInputLabel>
           <StyledError>{error && error.message}</StyledError>
         </StyledInputContainer>
         <StyledInput
-          id={`input-${inputName}`}
+          id={`input-${rest.name}`}
           {...rest}
           ref={ref}
           hasError={!!error}
