@@ -5,33 +5,43 @@ import {
   LoginMutationResult
 } from "../generated/graphql";
 import { setAccessToken } from "../accessToken";
+import { ApolloError } from "apollo-client";
+
+export type LoginType = {
+  response?: LoginMutationResult;
+  error?: ApolloError;
+};
 
 export const loginUser = async (
   login: LoginMutationFn,
   { usernameOrEmail, password }: LoginMutationVariables
-): Promise<LoginMutationResult | undefined> => {
-  const response = await login({
-    variables: {
-      usernameOrEmail,
-      password
-    },
-    update: (store: any, { data }: any) => {
-      if (!data || !data.login) {
-        return null;
-      }
-
-      store.writeQuery({
-        query: MeDocument,
-        data: {
-          me: data.login.user
+): Promise<LoginType> => {
+  try {
+    const response = await login({
+      variables: {
+        usernameOrEmail,
+        password
+      },
+      update: (store: any, { data }: any) => {
+        if (!data || !data.login) {
+          return null;
         }
-      });
+
+        store.writeQuery({
+          query: MeDocument,
+          data: {
+            me: data.login.user
+          }
+        });
+      }
+    });
+
+    if (response && response.data) {
+      setAccessToken(response.data.login.token);
     }
-  });
 
-  if (response && response.data) {
-    setAccessToken(response.data.login.token);
+    return { response: response as LoginMutationResult, error: undefined };
+  } catch (e) {
+    return { response: undefined, error: e };
   }
-
-  return response as LoginMutationResult;
 };

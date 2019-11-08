@@ -55,6 +55,7 @@ export const SkeletonContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
+  padding: 20px;
 `;
 
 type SkeletonContent = {
@@ -63,21 +64,17 @@ type SkeletonContent = {
 };
 
 export const SkeletonContent = styled.div<SkeletonContent>`
-  width: ${props => props.width}px;
+  width: 100%;
+  max-width: ${props => props.width}px;
   height: ${props => props.height}px;
   height: 30px;
   background: red;
   border-radius: 6px;
-  margin-left: 20px;
 
   animation: pulse 2s ease-in-out infinite;
 
   :first-child {
     margin-bottom: 10px;
-  }
-
-  :last-child {
-    margin-bottom: 20px;
   }
 
   @keyframes pulse {

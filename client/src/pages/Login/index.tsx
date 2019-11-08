@@ -7,24 +7,39 @@ import { TitleText, DescriptionText } from "../../components/Typography";
 import { StyledLink } from "../../components/Link";
 import { useMeContext } from "../../contexts/Me";
 import { RouteComponentProps } from "react-router-dom";
+import StatusText from "../../components/StatusText";
+
+type StatusType = {
+  success: boolean;
+  message: string;
+};
 
 const Login = ({ history }: RouteComponentProps) => {
   const [isLoading, setLoading] = useState(false);
+  const [status, setStatus] = useState<StatusType>();
+
   const { register: loginRef, handleSubmit, errors } = useForm();
   const {
     actions: { login }
   } = useMeContext();
 
   const onSubmit = async ({ email, password }: any) => {
+    // Set button state to loading
     setLoading(true);
 
     const response = await login(email, password);
 
-    if (response.isAuthed) {
-      history.push("/feed");
+    if (response.error) {
+      setStatus({
+        success: false,
+        message: response.error.graphQLErrors[0].message
+      });
+      setLoading(false);
     }
 
-    console.log(response);
+    if (response.me && response.me.isAuthed) {
+      history.push("/feed");
+    }
   };
 
   return (
@@ -49,6 +64,11 @@ const Login = ({ history }: RouteComponentProps) => {
           error={errors.password}
           type="password"
         />
+        {status && (
+          <StatusText style={{ marginTop: 20 }} success={status.success}>
+            {status.message}
+          </StatusText>
+        )}
         <Button flavor="LOGIN" type="submit" isLoading={isLoading}>
           {isLoading ? "logging in" : "login"}
         </Button>

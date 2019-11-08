@@ -7,7 +7,8 @@ import React, {
   useMemo
 } from "react";
 import { User, useMeQuery, useLoginMutation } from "../generated/graphql";
-import { loginUser } from "../api";
+import { loginUser, LoginType } from "../api";
+import { ApolloError } from "apollo-client";
 
 type MeState = {
   isLoading: boolean;
@@ -15,8 +16,14 @@ type MeState = {
   me?: User;
 };
 
+type LoginResponse = {
+  me?: MeState;
+  error?: ApolloError;
+};
+
 type MeActions = {
-  login(email: string, password: string): Promise<MeState>;
+  // login(email: string, password: string): Promise<LoginResponse>;
+  login(email: string, password: string): Promise<LoginResponse>;
 };
 
 type MeContextValue = {
@@ -42,22 +49,23 @@ export const MeProvider = ({ children }: MeProps) => {
   const actions = useMemo<MeActions>(
     () => ({
       login: async (email: string, password: string) => {
-        try {
-          const response = await loginUser(login, {
-            usernameOrEmail: email,
-            password
-          });
+        const { response, error }: LoginType = await loginUser(login, {
+          usernameOrEmail: email,
+          password
+        });
 
-          if (response && response.data) {
-            return {
-              isAuthed: true,
-              isLoading: false,
-              me: response.data.login.user
-            };
-          }
-        } catch (error) {
-          return error;
-        }
+        return {
+          me: {
+            // We only want say the user is authed when it has an access token
+            isAuthed:
+              response && response.data && response.data.login.token
+                ? true
+                : false,
+            isLoading: false,
+            me: response && response.data && (response.data.login.user as User)
+          },
+          error
+        };
       }
     }),
     [login]
@@ -67,7 +75,7 @@ export const MeProvider = ({ children }: MeProps) => {
     if (loading) {
       setState({
         isLoading: true,
-        ...state
+        isAuthed: false
       });
     } else if (data && data.me) {
       setState({
