@@ -5,5 +5,12 @@ export const createTypeormConn = async () => {
     process.env.NODE_ENV === "production" ? "production" : "default"
   );
 
-  return createConnection({ ...connectionOptions, name: "default" });
+  return process.env.NODE_ENV === "production"
+    ? createConnection({
+        ...(connectionOptions as any),
+        name: "default",
+        type: "postgres",
+        url: process.env.PROD_PG_URI as string
+      })
+    : createConnection({ ...connectionOptions, name: "default" });
 };

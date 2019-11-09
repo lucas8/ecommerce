@@ -2,16 +2,14 @@
   {
     "name": "production",
     "type": "postgres",
-    "host": "localhost",
-    "port": 1234,
-    "username": "postgres",
-    "password": "lucasthebear",
-    "database": "ecommerce",
     "synchronize": true,
     "logging": false,
     "entities": ["dist/entity/*.*"],
     "subscribers": ["dist/subscriber/*.*"],
-    "migrations": ["dist/migration/*.*"]
+    "migrations": ["dist/migration/*.*"],
+    "extra": {
+      "ssl": true
+    }
   },
   {
     "name": "default",
