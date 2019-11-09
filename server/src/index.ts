@@ -11,7 +11,6 @@ import { GraphQLSchema } from "graphql";
 import { createTypeormConn } from "./utils/createTypeormConn";
 
 const main = async () => {
-  // TODO: Create a production envoirment
   await createTypeormConn();
 
   const server: GraphQLServer = new GraphQLServer({
