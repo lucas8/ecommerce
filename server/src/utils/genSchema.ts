@@ -14,8 +14,15 @@ export const genSchema = () => {
     .sync(`${pathToModules}/**/resolvers.?s`)
     .map(resolver => require(resolver).resolvers);
 
+  const production = fs.readFileSync("dist/schema.graphql", {
+    encoding: "utf8"
+  });
+
   return makeExecutableSchema({
-    typeDefs: mergeTypes(graphqlTypes),
+    typeDefs:
+      process.env.NODE_ENV === "production"
+        ? production
+        : mergeTypes(graphqlTypes),
     resolvers: mergeResolvers(resolvers)
   });
 };

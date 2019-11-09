@@ -1,4 +1,4 @@
-import { ResolverMap, Context } from "../../../utils/types";
+import { ResolverMap, Context } from "../../../types/types";
 import { sendRefreshToken } from "../../../utils/sendRefreshToken";
 
 export const resolvers: ResolverMap = {

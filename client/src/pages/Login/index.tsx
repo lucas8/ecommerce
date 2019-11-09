@@ -1,63 +1,79 @@
 import React, { useState } from "react";
+import Input from "../../components/Input";
 import useForm from "react-hook-form";
+import Button from "../../components/Button";
+import { StyledLoginContainer, StyledForm } from "./style";
+import { TitleText, DescriptionText } from "../../components/Typography";
+import { StyledLink } from "../../components/Link";
+import { useMeContext } from "../../contexts/Me";
 import { RouteComponentProps } from "react-router-dom";
-import AuthWrapper from "../../components/AuthWrapper";
-import { useAuthContext } from "../../contexts/Auth";
-import LoginForm from "./LoginForm";
-import {
-  useCheckTwoFactorMutation,
-  useLoginMutation
-} from "../../generated/graphql";
-import { checkTwoAuth, loginUser } from "../../api";
-import TwoFactor from "../../components/TwoFactor";
+import StatusText from "../../components/StatusText";
 
-export const Login = ({ history }: RouteComponentProps) => {
-  const { handleSubmit, register, errors } = useForm();
-  const { actions } = useAuthContext();
-  const [hasTwoFactor, setTwoFactor] = useState(false);
+type StatusType = {
+  success: boolean;
+  message: string;
+};
 
-  const [
-    checkTwoFactor,
-    { error: twoFactorErrors }
-  ] = useCheckTwoFactorMutation();
-  const [login, { error }] = useLoginMutation();
+const Login = ({ history }: RouteComponentProps) => {
+  const [isLoading, setLoading] = useState(false);
+  const [status, setStatus] = useState<StatusType>();
 
-  const onSubmit = async ({
-    usernameOrEmail,
-    password
-  }: Record<string, any>) => {
-    const checkMFA = await checkTwoAuth(checkTwoFactor, {
-      usernameOrEmail,
-      password
-    });
+  const { register: loginRef, handleSubmit, errors } = useForm();
+  const {
+    actions: { login }
+  } = useMeContext();
 
-    if (!checkMFA) {
-      await loginUser(login, { usernameOrEmail, password });
+  const onSubmit = async ({ email, password }: any) => {
+    // Set button state to loading
+    setLoading(true);
+
+    const response = await login(email, password);
+
+    if (response.error) {
+      setStatus({
+        success: false,
+        message: response.error.graphQLErrors[0].message
+      });
+      setLoading(false);
+    }
+
+    if (response.me && response.me.isAuthed) {
       history.push("/feed");
-    } else {
-      actions.setAuthState({ usernameOrEmail, password });
-      setTwoFactor(true);
     }
   };
 
   return (
-    <AuthWrapper
-      title="Join others creating the first social ecommerce platform"
-      description="Lorem ipsum dolor sit amet, consectetur cesing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim."
-      hasFooter={true}
-    >
-      {hasTwoFactor ? (
-        <TwoFactor />
-      ) : (
-        <LoginForm
-          onSubmit={handleSubmit(onSubmit)}
-          register={register}
-          errors={errors}
-          error={error}
-          twoFactorError={twoFactorErrors}
+    <StyledLoginContainer>
+      <TitleText style={{ marginBottom: 5 }}>Login</TitleText>
+      <DescriptionText style={{ fontWeight: 600, marginBottom: 60 }}>
+        Don’t have an account?{" "}
+        <StyledLink to="/signup">Sign up here</StyledLink>
+      </DescriptionText>
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          name="email"
+          label="Your Email:"
+          ref={loginRef({ required: "An Email is Required!" })}
+          error={errors.email}
+          style={{ marginBottom: 30 }}
         />
-      )}
-    </AuthWrapper>
+        <Input
+          name="password"
+          label="Password:"
+          ref={loginRef({ required: "A Password is Required!" })}
+          error={errors.password}
+          type="password"
+        />
+        {status && (
+          <StatusText style={{ marginTop: 20 }} success={status.success}>
+            {status.message}
+          </StatusText>
+        )}
+        <Button flavor="LOGIN" type="submit" isLoading={isLoading}>
+          {isLoading ? "logging in" : "login"}
+        </Button>
+      </StyledForm>
+    </StyledLoginContainer>
   );
 };
 

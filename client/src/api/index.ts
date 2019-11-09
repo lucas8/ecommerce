@@ -1,45 +1,47 @@
-import { CheckTwoFactorMutationFn, MeDocument, LoginMutationFn, LoginMutationVariables, CheckTwoFactorMutationVariables } from "../generated/graphql";
+import {
+  LoginMutationFn,
+  LoginMutationVariables,
+  MeDocument,
+  LoginMutationResult
+} from "../generated/graphql";
 import { setAccessToken } from "../accessToken";
+import { ApolloError } from "apollo-client";
 
-// prettier-ignore
-export const checkTwoAuth = async (checkTwoFactor: CheckTwoFactorMutationFn, { usernameOrEmail, password }: CheckTwoFactorMutationVariables): Promise<boolean> => {
-    const response = await checkTwoFactor({
-        variables: {
-            usernameOrEmail,
-            password
-        }
-    });
+export type LoginType = {
+  response?: LoginMutationResult;
+  error?: ApolloError;
+};
 
-    if (response && response.data && response.data.checkTwoFactor) {
-        return true
-    } else {
-        return false
-    }
-}
-
-// prettier-ignore
-export const loginUser = async (login: LoginMutationFn, { usernameOrEmail, password, token }: LoginMutationVariables): Promise<void> => {
+export const loginUser = async (
+  login: LoginMutationFn,
+  { usernameOrEmail, password }: LoginMutationVariables
+): Promise<LoginType> => {
+  try {
     const response = await login({
-        variables: {
-            usernameOrEmail,
-            password,
-            token
-        },
-        update: (store: any, { data }: any) => {
-            if (!data || !data.login) {
-                return null;
-            }
-
-            store.writeQuery({
-                query: MeDocument,
-                data: {
-                    me: data.login.user
-                }
-            });
+      variables: {
+        usernameOrEmail,
+        password
+      },
+      update: (store: any, { data }: any) => {
+        if (!data || !data.login) {
+          return null;
         }
+
+        store.writeQuery({
+          query: MeDocument,
+          data: {
+            me: data.login.user
+          }
+        });
+      }
     });
 
     if (response && response.data) {
-        setAccessToken(response.data.login.token);
+      setAccessToken(response.data.login.token);
     }
-}
+
+    return { response: response as LoginMutationResult, error: undefined };
+  } catch (e) {
+    return { response: undefined, error: e };
+  }
+};

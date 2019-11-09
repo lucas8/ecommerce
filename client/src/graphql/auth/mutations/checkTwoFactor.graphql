@@ -1,3 +1,0 @@
-mutation CheckTwoFactor($usernameOrEmail: String!, $password: String!) {
-  checkTwoFactor(usernameOrEmail: $usernameOrEmail, password: $password)
-}

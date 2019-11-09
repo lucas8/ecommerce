@@ -1,11 +1,20 @@
 import styled from "styled-components";
+import { StyledThemeType } from "../../theme";
 
-export const FeedContainer = styled.div`
-  width: 100%;
-  height: 100%;
+export const FeedHeadContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  padding: 0 30px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 50px;
+
+  @media (max-width: ${({ theme }: StyledThemeType) => theme.mobile}) {
+    flex-wrap: wrap;
+  }
+`;
+
+export const FeaturedPosts = styled.div`
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-gap: 1rem;
 `;

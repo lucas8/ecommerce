@@ -1,4 +1,4 @@
-import { ResolverMap } from "../../../utils/types";
+import { ResolverMap, Token } from "../../../types/types";
 import { User } from "../../../entity/User";
 import {
   forgotPasswordLockAccount,
@@ -11,18 +11,13 @@ import { hash } from "bcrypt";
 import { sendEmail } from "../../../utils/sendEmail";
 import { userNotFoundError } from "../shared/errorMessages";
 
-interface TokenObject {
-  userId: string;
-}
-
-interface ForgotPasswordArgs {
-  newPassword: string;
-  token: string;
-}
-
 export const resolvers: ResolverMap = {
   Mutation: {
-    sendForgotPasswordEmail: async (_, { email }: { email: string }, __) => {
+    sendForgotPasswordEmail: async (
+      _,
+      { email }: GQL.ISendForgotPasswordEmailOnMutationArguments,
+      __
+    ) => {
       const user = await User.findOne({ email });
       if (!user) {
         throw new userNotFoundError();
@@ -40,13 +35,13 @@ export const resolvers: ResolverMap = {
     },
     forgotPasswordChange: async (
       _,
-      { newPassword, token }: ForgotPasswordArgs,
+      { newPassword, token }: GQL.IForgotPasswordChangeOnMutationArguments,
       __
     ) => {
       const { userId } = verify(
         token,
         process.env.EMAIL_TOKEN_SECRET!
-      ) as TokenObject;
+      ) as Token;
 
       try {
         await forgotPasswordSchema.validate(

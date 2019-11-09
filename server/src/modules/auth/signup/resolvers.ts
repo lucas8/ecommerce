@@ -1,4 +1,4 @@
-import { ResolverMap } from "../../../utils/types";
+import { ResolverMap } from "../../../types/types";
 import { signupSchema, createConfirmationEmail } from "./utils";
 import { formatYupError } from "../../../utils/formatYupError";
 import { User } from "../../../entity/User";
@@ -7,26 +7,17 @@ import { generateSecret } from "speakeasy";
 import { sendEmail } from "../../../utils/sendEmail";
 import { generateQRCode } from "../shared/generateQrCode";
 
-interface SignupArgs {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-  hasTwoFactor?: boolean;
-}
-
 export const resolvers: ResolverMap = {
   Mutation: {
     // prettier-ignore
-    signup: async (_, args: SignupArgs, __) => {
+    signup: async (_, args: GQL.ISignupOnMutationArguments, __) => {
       try {
         await signupSchema.validate(args, { abortEarly: false });
       } catch (err) {
         return formatYupError(err);
       }
 
-      const { username, email, password, firstName, lastName, hasTwoFactor }: SignupArgs = args;
+      const { email, hasTwoFactor } = args;
 
       const userAlreadyExists: User | undefined = await User.findOne({ email });
 
@@ -39,12 +30,8 @@ export const resolvers: ResolverMap = {
       console.log(await generateQRCode(secret.base32!, email));
 
       const user: User = User.create({
-        email,
-        password,
-        firstName,
-        username,
-        lastName,
-        hasTwoFactor,
+        ...args,
+        hasTwoFactor: hasTwoFactor || false,
         twoFactorChallenge: hasTwoFactor ? secret.base32 : undefined
       });
 

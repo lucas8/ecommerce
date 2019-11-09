@@ -5,14 +5,14 @@ import * as cors from "cors";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
 import { GraphQLServer } from "graphql-yoga";
-import { createConnection } from "typeorm";
 import { genSchema } from "./utils/genSchema";
 import { RefreshRoute } from "./routes/refreshRoute";
 import { GraphQLSchema } from "graphql";
+import { createTypeormConn } from "./utils/createTypeormConn";
 
 const main = async () => {
   // TODO: Create a production envoirment
-  await createConnection();
+  await createTypeormConn();
 
   const server: GraphQLServer = new GraphQLServer({
     schema: genSchema() as GraphQLSchema,

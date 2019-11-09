@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Routes } from "./Routes";
-import { setAccessToken } from "./accessToken";
 import APIProvider from "./contexts/API";
+import { ThemeProvider } from "styled-components";
+import theme, { ThemeType } from "./theme";
+import { GlobalStyles } from "./global";
+import { setAccessToken } from "./accessToken";
 
 interface Props {}
 
+// Note: ThemeProvider returns its children when rendering, so only one node
 const App: React.FC<Props> = () => {
   const [loading, setLoading] = useState(true);
 
@@ -24,9 +28,14 @@ const App: React.FC<Props> = () => {
   }
 
   return (
-    <APIProvider>
-      <Routes />
-    </APIProvider>
+    <ThemeProvider theme={theme as ThemeType}>
+      <>
+        <GlobalStyles />
+        <APIProvider>
+          <Routes />
+        </APIProvider>
+      </>
+    </ThemeProvider>
   );
 };
 
