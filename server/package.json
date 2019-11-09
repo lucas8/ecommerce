@@ -2,6 +2,7 @@
   "name": "@ecommerce/server",
   "version": "0.0.1",
   "description": "ecommerce server",
+  "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=production node dist/index.js",
     "build": "NODE_ENV=production tsc -b && yarn gen:typedefs",
