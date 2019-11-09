@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 import theme, { ThemeType } from "./theme";
 import { GlobalStyles } from "./global";
 import { setAccessToken } from "./accessToken";
+import { baseUrl } from "./index";
 
 interface Props {}
 
@@ -13,7 +14,7 @@ const App: React.FC<Props> = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:4000/refresh_token", {
+    fetch(`${baseUrl}refresh_token`, {
       method: "POST",
       credentials: "include"
     }).then(async x => {

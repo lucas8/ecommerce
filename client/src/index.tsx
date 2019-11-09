@@ -12,7 +12,7 @@ import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwtDecode from "jwt-decode";
 import "./static/reset.css";
 
-const baseUrl =
+export const baseUrl =
   process.env.NODE_ENV === "production"
     ? "https://prod-ecommerce.herokuapp.com/"
     : "http://localhost:4000/";
