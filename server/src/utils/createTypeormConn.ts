@@ -10,7 +10,7 @@ export const createTypeormConn = async () => {
         ...(connectionOptions as any),
         name: "default",
         type: "postgres",
-        url: process.env.PROD_PG_URI as string
+        url: process.env.DATABASE_URL as string
       })
     : createConnection({ ...connectionOptions, name: "default" });
 };
