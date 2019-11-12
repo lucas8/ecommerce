@@ -18,3 +18,21 @@ export const FeaturedPosts = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 1rem;
 `;
+
+export const ModalHeaderContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+export const ModalImage = styled.img`
+  width: 100px;
+  height: 60px;
+  border-radius: 3px;
+`;
+
+export const ModalHeaderTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+`;

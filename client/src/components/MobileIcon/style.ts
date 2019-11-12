@@ -13,7 +13,6 @@ export const StyledMenuIcon = styled.button<{ open: boolean }>`
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 10;
 
   &:focus {
     outline: none;
@@ -23,7 +22,7 @@ export const StyledMenuIcon = styled.button<{ open: boolean }>`
     width: 2rem;
     height: 0.3rem;
     background: ${({ theme, open }: { theme: ThemeType; open: boolean }) =>
-      open ? theme.bg.border : theme.bg.secondary};
+    open ? theme.bg.border : theme.bg.secondary};
     border-radius: 20px;
     transition: all 250ms linear;
     position: relative;

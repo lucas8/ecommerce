@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useRef, Fragment } from "react";
 import { useTransition, animated as a } from "react-spring";
 import {
   BackgroundWash,
@@ -56,12 +56,16 @@ const ModalWrapper = ({ children, isOpen }: ModalWrapperProps) => {
   });
 
   return (
-    <div>
+    <Fragment>
       {transition.map(
         ({ item, key, props }) =>
-          item && <a.div style={props}>{children}</a.div>
+          item && (
+            <a.div key={key} style={props}>
+              {children}
+            </a.div>
+          )
       )}
-    </div>
+    </Fragment>
   );
 };
 

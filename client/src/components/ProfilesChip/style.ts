@@ -16,6 +16,6 @@ export const ProfileChip = styled.img<{ left: number }>`
   :not(:first-child) {
     position: relative;
     right: ${({ left }) => left * 15}px;
-    z-index: 10;
+    z-index: 1;
   }
 `;

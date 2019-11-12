@@ -4,19 +4,21 @@ import { StyledThemeType } from "../../theme";
 export const BackgroundWash = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   background: #30344650;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
+  overflow-y: hidden;
 `;
 
 export const ModalContainer = styled.div`
   width: 500px;
-  height: 500px;
   background: white;
   border-radius: 8px;
   padding: 20px;
+  word-wrap: break-word;
 `;
 
 // Modal Header
@@ -25,6 +27,7 @@ export const ModalHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 15px;
 `;
 
 export const ModalHeaderText = styled.h2`
