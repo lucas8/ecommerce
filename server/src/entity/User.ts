@@ -45,7 +45,10 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   twoFactorChallenge: string;
 
-  @OneToMany(() => Post, post => post.owner)
+  @OneToMany(
+    () => Post,
+    post => post.owner
+  )
   @JoinColumn()
   posts: Post[];
 
