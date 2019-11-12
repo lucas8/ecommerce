@@ -12,7 +12,7 @@ export const CardContainer = styled.div<CardContainerProps>`
   border-radius: 6px;
   background: #fff;
   overflow: hidden;
-
+  cursor: pointer;
 
   ${({ flavor }: CardContainerProps) =>
     flavor === "LARGE" &&

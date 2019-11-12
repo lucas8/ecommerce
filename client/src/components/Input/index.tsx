@@ -1,4 +1,4 @@
-import React, { Fragment, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import {
   StyledInput,
   StyledInputContainer,
@@ -10,12 +10,16 @@ import { FieldError } from "react-hook-form/dist/types";
 type InputProps = {
   label: string;
   error: FieldError | undefined;
+  hasBorder: boolean;
 } & any;
 
 const Input = forwardRef(
-  ({ inputName, label, error, ...rest }: InputProps, ref: any) => {
+  (
+    { inputName, label, error, hasBorder = false, ...rest }: InputProps,
+    ref: any
+  ) => {
     return (
-      <Fragment>
+      <div>
         <StyledInputContainer>
           <StyledInputLabel htmlFor={`input-${rest.name}`}>
             {label}
@@ -27,8 +31,9 @@ const Input = forwardRef(
           {...rest}
           ref={ref}
           hasError={!!error}
+          hasBorder={hasBorder}
         />
-      </Fragment>
+      </div>
     );
   }
 );

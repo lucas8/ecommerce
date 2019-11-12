@@ -3,6 +3,7 @@ import { StyledThemeType, ThemeType } from "../../theme";
 
 interface StyledInputProps {
   hasError?: boolean;
+  hasBorder?: boolean;
 }
 
 export const StyledInput = styled.input<StyledInputProps>`
@@ -15,6 +16,12 @@ export const StyledInput = styled.input<StyledInputProps>`
   transition: all 0.2s linear;
   font-size: 1rem;
   margin-top: 5px;
+
+  ${({ hasBorder }) =>
+    hasBorder &&
+    css`
+      box-shadow: 0 0 0 2px ${({ theme }: StyledThemeType) => theme.bg.border};
+    `}
 
   ${({ hasError }) =>
     !hasError &&

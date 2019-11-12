@@ -22,7 +22,6 @@ type LoginResponse = {
 };
 
 type MeActions = {
-  // login(email: string, password: string): Promise<LoginResponse>;
   login(email: string, password: string): Promise<LoginResponse>;
 };
 

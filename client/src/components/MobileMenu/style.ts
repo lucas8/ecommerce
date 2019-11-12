@@ -20,8 +20,8 @@ export const MobileMenuHeader = styled.h4`
 
 export const Divider = styled.hr`
   height: 1px;
-  color: ${({ theme }: StyledThemeType) => theme.bg.border};
-  background-color: ${({ theme }: StyledThemeType) => theme.bg.border};
+  color: ${({ theme }: StyledThemeType) => theme.text.secondary}20;
+  background-color: ${({ theme }: StyledThemeType) => theme.text.secondary}20;
   border: none;
   margin: 8px 0;
 `;

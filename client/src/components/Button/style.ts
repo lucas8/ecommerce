@@ -7,7 +7,6 @@ interface StyledButton {
 }
 
 export const StyledButton = styled.button<StyledButton>`
-  position: relative;
   font-size: 1.2rem;
   border: none;
   outline: none;
@@ -17,12 +16,12 @@ export const StyledButton = styled.button<StyledButton>`
   padding: 0 20px;
   height: 40px;
   background: ${({
-    theme,
-    isLoading
-  }: {
-    theme: ThemeType;
-    isLoading: boolean;
-  }) => (isLoading ? theme.bg.hoverBlue : theme.bg.secondary)};
+  theme,
+  isLoading
+}: {
+  theme: ThemeType;
+  isLoading: boolean;
+}) => (isLoading ? theme.bg.hoverBlue : theme.bg.secondary)};
   display: flex;
   flex: none;
   align-items: center;
