@@ -10,10 +10,11 @@ export const getUserId = (context: Context) => {
 
   if (Authorization) {
     const token: string = Authorization.replace("Bearer ", "");
-    const verifiedToken: Token = verify(
-      token,
-      process.env.ACCESS_TOKEN_SECRET!
-    ) as Token;
+    let verifiedToken: Token | undefined;
+
+    try {
+      verifiedToken = verify(token, process.env.ACCESS_TOKEN_SECRET!) as Token;
+    } catch (e) {}
 
     return verifiedToken && verifiedToken.userId;
   } else {

@@ -9,14 +9,55 @@ import { genSchema } from "./utils/genSchema";
 import { RefreshRoute } from "./routes/refreshRoute";
 import { GraphQLSchema } from "graphql";
 import { createTypeormConn } from "./utils/createTypeormConn";
+import { rule, shield, and } from "graphql-shield";
+import { Context } from "./types/types";
+import { getUserId } from "./utils/getUserId";
+import { User } from "./entity/User";
 
 const main = async () => {
   await createTypeormConn();
 
+  // Rules
+  const isAuthenticated = rule()(async (_, __, ctx: Context, ___) => {
+    return ctx.user !== undefined;
+  });
+
+  const hasConfirmedEmail = rule()(async (_, __, ctx: Context, ___) => {
+    const { user: userId } = ctx;
+
+    if (!userId) {
+      return false;
+    }
+
+    const user = await User.findOne({ id: userId as any });
+    if (!user) {
+      return false;
+    }
+
+    if (user.confirmed) {
+      return true;
+    }
+
+    return false;
+  });
+
+  const permissions = shield({
+    Query: {
+      me: isAuthenticated
+    },
+    Mutation: {
+      logout: isAuthenticated,
+      newPost: and(isAuthenticated, hasConfirmedEmail),
+      purchase: and(isAuthenticated, hasConfirmedEmail)
+    }
+  });
+
   const server: GraphQLServer = new GraphQLServer({
     schema: genSchema() as GraphQLSchema,
-    context: request => ({
-      ...request
+    middlewares: [permissions],
+    context: (ctx: Context) => ({
+      ...ctx,
+      user: getUserId(ctx)
     })
   });
 

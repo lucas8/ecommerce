@@ -58,6 +58,7 @@ checkTwoFactor: boolean;
 logout: boolean;
 signup: boolean | null;
 newPost: IPost;
+purchase: boolean;
 }
 
 interface IConfirmEmailOnMutationArguments {
@@ -102,6 +103,10 @@ name: string;
 imageUrl: string;
 price: number;
 description: string;
+}
+
+interface IPurchaseOnMutationArguments {
+postId: string;
 }
 
 interface IAuthResponse {
