@@ -89,21 +89,18 @@ const Feed = () => {
             <SkeletonCards />
           ) : (
             // Making sure the posts are displayed 1, 2, 3 ...
-            posts
-              .slice(0)
-              .reverse()
-              .map(post => {
-                return (
-                  <BigCard
-                    post={post}
-                    key={post.id}
-                    onClick={() => {
-                      setOpen(true);
-                      setModalPost(post);
-                    }}
-                  />
-                );
-              })
+            posts.map(post => {
+              return (
+                <BigCard
+                  post={post}
+                  key={post.id}
+                  onClick={() => {
+                    setOpen(true);
+                    setModalPost(post);
+                  }}
+                />
+              );
+            })
           )}
         </FeaturedPosts>
       </Layout>

@@ -38,7 +38,7 @@ const Login = ({ history }: RouteComponentProps) => {
     }
 
     if (response.me && response.me.isAuthed) {
-      history.push("/feed");
+      history.push("/");
     }
   };
 

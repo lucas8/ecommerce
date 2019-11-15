@@ -23,7 +23,7 @@ const Layout = ({ children, title }: LayoutProps) => {
   const topBarLayout = [
     {
       name: "Feed",
-      href: "/feed"
+      href: "/"
     },
     {
       name: "Messages",
@@ -32,7 +32,7 @@ const Layout = ({ children, title }: LayoutProps) => {
     {
       name: "Account",
       // Fallback to feed if user is not fetched yet
-      href: me ? `/@${me.username}` : "/feed"
+      href: me ? `/@${me.username}` : "/"
     }
   ];
 
