@@ -10,7 +10,7 @@ export const resolvers: ResolverMap = {
     purchase: (
       _,
       { postId }: GQL.IPurchaseOnMutationArguments,
-      { user: userId }: Context
+      { user: userId, stripe }: Context
     ) => {
       return getConnection().transaction(
         "SERIALIZABLE",
@@ -34,6 +34,39 @@ export const resolvers: ResolverMap = {
           if (!user) {
             throw new userNotFoundError();
           }
+
+          // Create a customer if one does not already exist
+          if (!user.stripeCustomerId) {
+            const customer = await stripe.customers.create({
+              email: user.email,
+              name: `${user.firstName} ${user.lastName}`,
+              description: user.id
+            });
+
+            user.stripeCustomerId = customer.id;
+
+            await transactionalEntityManager.save(user);
+          }
+
+          // Create new stripe checkout session
+          const session = await stripe.checkout.sessions.create({
+            customer: user.stripeCustomerId as string,
+            payment_method_types: ["card"],
+            line_items: [
+              {
+                name: post.name,
+                description: post.description,
+                images: [post.imageUrl],
+                amount: post.price * 100,
+                currency: "usd",
+                quantity: 1
+              }
+            ],
+            success_url: "http://localhost:3000/success",
+            cancel_url: "http://localhost:3000/cancel"
+          });
+
+          return session.id;
         }
       );
     }

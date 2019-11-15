@@ -12,6 +12,7 @@ import { createTypeormConn } from "./utils/createTypeormConn";
 import { Context } from "./types/types";
 import { getUserId } from "./utils/getUserId";
 import { permissions } from "./utils/shieldRules";
+import * as Stripe from "stripe";
 
 const main = async () => {
   await createTypeormConn();
@@ -21,7 +22,8 @@ const main = async () => {
     middlewares: [permissions],
     context: (ctx: Context) => ({
       ...ctx,
-      user: getUserId(ctx)
+      user: getUserId(ctx),
+      stripe: new Stripe(process.env.STRIPE_PRIVATE as string)
     })
   });
 

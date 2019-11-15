@@ -20,4 +20,8 @@ export const GlobalStyles = createGlobalStyle`
         color: ${({ theme }: StyledThemeType) => theme.text.default};
         text-rendering: optimizeLegibility;
     }
+
+    b {
+        font-weight: bold !important;
+    }
 `;

@@ -27,7 +27,7 @@ export type Mutation = {
   logout: Scalars['Boolean'],
   signup?: Maybe<Scalars['Boolean']>,
   newPost: Post,
-  purchase: Scalars['Boolean'],
+  purchase: Scalars['String'],
 };
 
 
@@ -173,6 +173,16 @@ export type MeQuery = (
   )> }
 );
 
+export type PurchaseMutationVariables = {
+  postId: Scalars['ID']
+};
+
+
+export type PurchaseMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'purchase'>
+);
+
 export type PostsQueryVariables = {};
 
 
@@ -273,6 +283,19 @@ export const MeDocument = gql`
       
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const PurchaseDocument = gql`
+    mutation Purchase($postId: ID!) {
+  purchase(postId: $postId)
+}
+    `;
+export type PurchaseMutationFn = ApolloReactCommon.MutationFunction<PurchaseMutation, PurchaseMutationVariables>;
+
+    export function usePurchaseMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<PurchaseMutation, PurchaseMutationVariables>) {
+      return ApolloReactHooks.useMutation<PurchaseMutation, PurchaseMutationVariables>(PurchaseDocument, baseOptions);
+    }
+export type PurchaseMutationHookResult = ReturnType<typeof usePurchaseMutation>;
+export type PurchaseMutationResult = ApolloReactCommon.MutationResult<PurchaseMutation>;
+export type PurchaseMutationOptions = ApolloReactCommon.BaseMutationOptions<PurchaseMutation, PurchaseMutationVariables>;
 export const PostsDocument = gql`
     query Posts {
   posts {

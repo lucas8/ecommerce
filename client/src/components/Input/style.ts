@@ -49,4 +49,5 @@ export const StyledError = styled.span`
   font-weight: 600;
   font-size: 1rem;
   color: ${({ theme }: StyledThemeType) => theme.text.danger};
+  text-align: right;
 `;

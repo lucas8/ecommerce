@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, ReactChildren, ReactNode } from "react";
 import Layout from "../../components/Layout";
 import {
   TitleText,
@@ -13,7 +13,8 @@ import {
   FeaturedPosts,
   ModalHeaderContainer,
   ModalImage,
-  ModalHeaderTextWrapper
+  ModalHeaderTextWrapper,
+  CheckMarkRowContainer
 } from "./style";
 import { BigCard, SkeletonCard } from "../../components/Cards";
 import { usePostsContext } from "../../contexts/Posts";
@@ -22,8 +23,8 @@ import { Post, PostsDocument } from "../../generated/graphql";
 import { Divider } from "../../components/MobileMenu/style";
 import { Tooltip } from "../../components/Tooltip";
 import ModalPurchaseForm from "../../components/ModalPurchaseForm";
-import { Elements } from "react-stripe-elements";
 import { ReactComponent as ShoppingBag } from "../../static/svg/shopping-bag.svg";
+import { ReactComponent as Check } from "../../static/svg/check.svg";
 
 interface ModalState extends Post {}
 
@@ -57,9 +58,17 @@ const Feed = () => {
           </ModalHeaderTextWrapper>
         </ModalHeaderContainer>
         <Divider style={{ margin: "15px 0" }} />
-        <Elements>
-          <ModalPurchaseForm />
-        </Elements>
+        <CheckMarkRow>
+          Buyers protection <b>guaranteed</b>
+        </CheckMarkRow>
+        <CheckMarkRow>
+          <b>Shipping information</b> and package <b>insurance</b>
+        </CheckMarkRow>
+        <CheckMarkRow>
+          <b>Lorum</b> Ipsum Dolor
+        </CheckMarkRow>
+        <Divider style={{ margin: "15px 0" }} />
+        <ModalPurchaseForm postId={modalPost.id} />
       </Modal>
       <Layout title="Feed">
         <FeedHeadContainer>
@@ -111,5 +120,14 @@ const SkeletonCards = () => {
       <SkeletonCard />
       <SkeletonCard />
     </Fragment>
+  );
+};
+
+export const CheckMarkRow = ({ children }: { children: ReactNode }) => {
+  return (
+    <CheckMarkRowContainer>
+      <Check style={{ marginRight: 10 }} />
+      <span>{children}</span>
+    </CheckMarkRowContainer>
   );
 };
