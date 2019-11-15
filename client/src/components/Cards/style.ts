@@ -4,6 +4,7 @@ import { StyledThemeType } from "../../theme";
 
 interface CardContainerProps {
   flavor: "LARGE" | "SMALL";
+  purchased: boolean;
 }
 
 export const CardContainer = styled.div<CardContainerProps>`
@@ -13,6 +14,8 @@ export const CardContainer = styled.div<CardContainerProps>`
   background: #fff;
   overflow: hidden;
   cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(225,225,225,0.50);
+  opacity: ${({ purchased }) => (purchased ? ".5" : "1")};
 
   ${({ flavor }: CardContainerProps) =>
     flavor === "LARGE" &&

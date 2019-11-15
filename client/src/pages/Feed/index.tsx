@@ -22,6 +22,8 @@ import { Post, PostsDocument } from "../../generated/graphql";
 import { Divider } from "../../components/MobileMenu/style";
 import { Tooltip } from "../../components/Tooltip";
 import ModalPurchaseForm from "../../components/ModalPurchaseForm";
+import { Elements } from "react-stripe-elements";
+import { ReactComponent as ShoppingBag } from "../../static/svg/shopping-bag.svg";
 
 interface ModalState extends Post {}
 
@@ -33,7 +35,12 @@ const Feed = () => {
   return (
     <Fragment>
       <Tooltip />
-      <Modal title="Purchase" isOpen={isOpen} setOpen={setOpen}>
+      <Modal
+        title="Purchase"
+        isOpen={isOpen}
+        setOpen={setOpen}
+        icon={ShoppingBag}
+      >
         <ModalHeaderContainer>
           <ModalImage
             src={modalPost.imageUrl}
@@ -50,7 +57,9 @@ const Feed = () => {
           </ModalHeaderTextWrapper>
         </ModalHeaderContainer>
         <Divider style={{ margin: "15px 0" }} />
-        <ModalPurchaseForm />
+        <Elements>
+          <ModalPurchaseForm />
+        </Elements>
       </Modal>
       <Layout title="Feed">
         <FeedHeadContainer>
@@ -70,18 +79,22 @@ const Feed = () => {
           {isLoading ? (
             <SkeletonCards />
           ) : (
-            posts.map(post => {
-              return (
-                <BigCard
-                  post={post}
-                  key={post.id}
-                  onClick={() => {
-                    setOpen(true);
-                    setModalPost(post);
-                  }}
-                />
-              );
-            })
+            // Making sure the posts are displayed 1, 2, 3 ...
+            posts
+              .slice(0)
+              .reverse()
+              .map(post => {
+                return (
+                  <BigCard
+                    post={post}
+                    key={post.id}
+                    onClick={() => {
+                      setOpen(true);
+                      setModalPost(post);
+                    }}
+                  />
+                );
+              })
           )}
         </FeaturedPosts>
       </Layout>

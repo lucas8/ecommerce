@@ -27,6 +27,7 @@ export type Mutation = {
   logout: Scalars['Boolean'],
   signup?: Maybe<Scalars['Boolean']>,
   newPost: Post,
+  purchase: Scalars['Boolean'],
 };
 
 
@@ -76,6 +77,11 @@ export type MutationNewPostArgs = {
   description: Scalars['String']
 };
 
+
+export type MutationPurchaseArgs = {
+  postId: Scalars['ID']
+};
+
 export type Post = {
    __typename?: 'Post',
   id: Scalars['ID'],
@@ -84,6 +90,7 @@ export type Post = {
   price: Scalars['Float'],
   description: Scalars['String'],
   owner: User,
+  isPurchased: Scalars['Boolean'],
 };
 
 export type Query = {
@@ -173,7 +180,7 @@ export type PostsQuery = (
   { __typename?: 'Query' }
   & { posts: Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'name' | 'imageUrl' | 'price' | 'description'>
+    & Pick<Post, 'id' | 'name' | 'imageUrl' | 'price' | 'description' | 'isPurchased'>
     & { owner: (
       { __typename?: 'User' }
       & Pick<User, 'username'>
@@ -274,6 +281,7 @@ export const PostsDocument = gql`
     imageUrl
     price
     description
+    isPurchased
     owner {
       username
     }

@@ -27,7 +27,7 @@ const Input = forwardRef(
           <StyledError>{error && error.message}</StyledError>
         </StyledInputContainer>
         <StyledInput
-          id={`input-${rest.name}`}
+          id={`input-${rest.name || inputName}`}
           {...rest}
           ref={ref}
           hasError={!!error}

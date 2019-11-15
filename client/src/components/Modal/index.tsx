@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, Fragment } from "react";
+import React, { ReactNode, useRef, Fragment, FunctionComponent } from "react";
 import { useTransition, animated as a } from "react-spring";
 import {
   BackgroundWash,
@@ -11,16 +11,22 @@ import {
 } from "./style";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { ReactComponent as Close } from "../../static/svg/x.svg";
-import { ReactComponent as ShoppingBag } from "../../static/svg/shopping-bag.svg";
 
 interface ModalProps {
   title: string;
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children?: ReactNode;
+  icon: FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }
 
-const Modal = ({ title, isOpen, setOpen, children }: ModalProps) => {
+const Modal = ({
+  title,
+  isOpen,
+  setOpen,
+  children,
+  icon: Icon
+}: ModalProps) => {
   const node = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useOnClickOutside(node, () => {
@@ -32,7 +38,7 @@ const Modal = ({ title, isOpen, setOpen, children }: ModalProps) => {
       <BackgroundWash>
         <ModalContainer ref={node}>
           <ModalHeader title={title} setClosed={setOpen}>
-            <ShoppingBag />
+            <Icon />
           </ModalHeader>
           {children}
         </ModalContainer>

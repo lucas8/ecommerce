@@ -1,9 +1,29 @@
 import React from "react";
 import Input from "../Input";
-import { FormRow } from "./style";
+import { FormRow, StyledCardContainer } from "./style";
 import Button from "../Button";
+import { injectStripe, CardElement } from "react-stripe-elements";
+import { useThemeContext } from "../../contexts/Theme";
+import { StyledInputLabel } from "../Input/style";
 
 const ModalPurchaseForm = () => {
+  const {
+    text: { default: cardColor, secondary },
+    fonts: { body }
+  } = useThemeContext();
+
+  const cardStyle = {
+    base: {
+      color: cardColor,
+      iconColor: cardColor,
+      fontFamily: body,
+      fontWeight: 500,
+      "::placeholder": {
+        color: secondary
+      }
+    }
+  };
+
   return (
     <form>
       <Input inputName="Name" label="Name" hasBorder={true} />
@@ -19,6 +39,12 @@ const ModalPurchaseForm = () => {
         <Input inputName="country" label="Country" hasBorder={true} />
         <Input inputName="zip" label="Zip Code" hasBorder={true} />
       </FormRow>
+      <div style={{ marginTop: 15 }}>
+        <StyledInputLabel>Card:</StyledInputLabel>
+        <StyledCardContainer>
+          <CardElement style={cardStyle} />
+        </StyledCardContainer>
+      </div>
       <Button type="submit" style={{ marginTop: 15, width: "100%" }}>
         Purchase
       </Button>
@@ -26,4 +52,4 @@ const ModalPurchaseForm = () => {
   );
 };
 
-export default ModalPurchaseForm;
+export default injectStripe(ModalPurchaseForm);

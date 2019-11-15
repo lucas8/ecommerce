@@ -5,6 +5,7 @@ query Posts {
     imageUrl
     price
     description
+    isPurchased
     owner {
       username
     }

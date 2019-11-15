@@ -4,7 +4,7 @@ export interface Context {
   request: any;
   response: any;
   session: any;
-  user?: User;
+  user: User;
 }
 
 export type Resolver = (
