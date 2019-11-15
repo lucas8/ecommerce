@@ -5,4 +5,5 @@ type Post {
   price: Float!
   description: String!
   owner: User!
+  isPurchased: Boolean!
 }

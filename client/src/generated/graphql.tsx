@@ -27,6 +27,7 @@ export type Mutation = {
   logout: Scalars['Boolean'],
   signup?: Maybe<Scalars['Boolean']>,
   newPost: Post,
+  purchase: Scalars['String'],
 };
 
 
@@ -76,6 +77,11 @@ export type MutationNewPostArgs = {
   description: Scalars['String']
 };
 
+
+export type MutationPurchaseArgs = {
+  postId: Scalars['ID']
+};
+
 export type Post = {
    __typename?: 'Post',
   id: Scalars['ID'],
@@ -84,6 +90,7 @@ export type Post = {
   price: Scalars['Float'],
   description: Scalars['String'],
   owner: User,
+  isPurchased: Scalars['Boolean'],
 };
 
 export type Query = {
@@ -166,6 +173,16 @@ export type MeQuery = (
   )> }
 );
 
+export type PurchaseMutationVariables = {
+  postId: Scalars['ID']
+};
+
+
+export type PurchaseMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'purchase'>
+);
+
 export type PostsQueryVariables = {};
 
 
@@ -173,7 +190,7 @@ export type PostsQuery = (
   { __typename?: 'Query' }
   & { posts: Array<Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'name' | 'imageUrl' | 'price' | 'description'>
+    & Pick<Post, 'id' | 'name' | 'imageUrl' | 'price' | 'description' | 'isPurchased'>
     & { owner: (
       { __typename?: 'User' }
       & Pick<User, 'username'>
@@ -266,6 +283,19 @@ export const MeDocument = gql`
       
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const PurchaseDocument = gql`
+    mutation Purchase($postId: ID!) {
+  purchase(postId: $postId)
+}
+    `;
+export type PurchaseMutationFn = ApolloReactCommon.MutationFunction<PurchaseMutation, PurchaseMutationVariables>;
+
+    export function usePurchaseMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<PurchaseMutation, PurchaseMutationVariables>) {
+      return ApolloReactHooks.useMutation<PurchaseMutation, PurchaseMutationVariables>(PurchaseDocument, baseOptions);
+    }
+export type PurchaseMutationHookResult = ReturnType<typeof usePurchaseMutation>;
+export type PurchaseMutationResult = ApolloReactCommon.MutationResult<PurchaseMutation>;
+export type PurchaseMutationOptions = ApolloReactCommon.BaseMutationOptions<PurchaseMutation, PurchaseMutationVariables>;
 export const PostsDocument = gql`
     query Posts {
   posts {
@@ -274,6 +304,7 @@ export const PostsDocument = gql`
     imageUrl
     price
     description
+    isPurchased
     owner {
       username
     }

@@ -253,12 +253,19 @@
   resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
   integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
 
+"@types/stripe@^7.13.3":
+  version "7.13.3"
+  resolved "https://registry.yarnpkg.com/@types/stripe/-/stripe-7.13.3.tgz#1213d473f272fe9e3c3192fec37e3515654345d9"
+  integrity sha512-l8G+m1a5HYmmP2IaNOJ3E6VNzTdMBCADI+NWEMVy52jxClEv4h+94+Csx3TpSnwf6KSxXfy54s7W/hWHVta+EQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/tough-cookie@*":
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.5.tgz#9da44ed75571999b65c37b60c9b2b88db54c585d"
   integrity sha512-SCcK7mvGi3+ZNz833RRjFIxrn4gI1PPR3NtuIS+6vMkvmsGjosqTJwRt5bAEFLRz+wtJMWv8+uOnZf2hi2QXTg==
 
-"@types/yup@^0.26.24":
+"@types/yup@0.26.24", "@types/yup@^0.26.24":
   version "0.26.24"
   resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.24.tgz#c24170b3a5c867b4fabd49fcc42fe45f780cb153"
   integrity sha512-x0bhHnYjH5mZit4HivUYbTMO4LouOTGwp/LLxSL1mbJYVwNJtHYESH0ed2bwM1lkI2yDmsoCDYJnWEgHeJDACg==
@@ -1328,6 +1335,15 @@ graphql-playground-middleware-lambda@1.7.12:
   dependencies:
     graphql-playground-html "1.6.12"
 
+graphql-shield@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-7.0.2.tgz#65d51528b4e36c4a5023276267abbd1abb57ce0b"
+  integrity sha512-ZgCQ9efzgehkIVMFoxaOubnvwHVqthtsIXA+xRu8B4ga2Ch/EHiswNCDKpTXTBQZmjeDCSHeAj4XDmbzR4Trxw==
+  dependencies:
+    "@types/yup" "0.26.24"
+    object-hash "^2.0.0"
+    yup "^0.27.0"
+
 graphql-subscriptions@^0.5.8:
   version "0.5.8"
   resolved "https://registry.yarnpkg.com/graphql-subscriptions/-/graphql-subscriptions-0.5.8.tgz#13a6143c546bce390404657dc73ca501def30aa7"
@@ -2113,6 +2129,11 @@ object-assign@^4, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
 
+object-hash@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.0.0.tgz#7c4cc341eb8b53367312a7c546142f00c9e0ea20"
+  integrity sha512-I7zGBH0rDKwVGeGZpZoFaDhIwvJa3l1CZE+8VchylXbInNiCj7sxxea9P5dTM4ftKR5//nrqxrdeGSTWL2VpBA==
+
 object-inspect@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.6.0.tgz#c70b6cbf72f274aab4c34c0c82f5167bf82cf15b"
@@ -2432,6 +2453,11 @@ qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
+
+qs@^6.6.0:
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
+  integrity sha512-Cxm7/SS/y/Z3MHWSxXb8lIFqgqBowP5JMlTUFyJN88y0SGQhVmZnqFK/PeuMX9LzUyWsqqhNxIyg0jlzq946yA==
 
 qs@~6.5.2:
   version "6.5.2"
@@ -2852,6 +2878,13 @@ strip-json-comments@^2.0.0, strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
+
+stripe@^7.13.0:
+  version "7.13.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-7.13.0.tgz#82f9730a1a956ec93323f510b823578dbfbe8451"
+  integrity sha512-txnnBWAcwIsQ4/P3gYp74C0O9hONDVjKBlPTSG4GheDTZ0V5rkpoFYbuv4g8LvmrPMCZmz3chZ/nunnrTli4Iw==
+  dependencies:
+    qs "^6.6.0"
 
 subscriptions-transport-ws@^0.9.8:
   version "0.9.16"

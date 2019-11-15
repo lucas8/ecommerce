@@ -36,3 +36,12 @@ export const ModalHeaderTextWrapper = styled.div`
   flex-direction: column;
   margin-left: 15px;
 `;
+
+// Check mark
+export const CheckMarkRowContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+`;

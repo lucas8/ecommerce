@@ -1,7 +1,12 @@
+import { User } from "../entity/User";
+import Stripe = require("stripe");
+
 export interface Context {
   request: any;
   response: any;
   session: any;
+  user: User;
+  stripe: Stripe;
 }
 
 export type Resolver = (

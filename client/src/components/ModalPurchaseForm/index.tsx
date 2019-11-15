@@ -1,29 +1,67 @@
-import React from "react";
-import Input from "../Input";
-import { FormRow } from "./style";
+import React, { useState } from "react";
+import { MeStatusText, MeDescription } from "./style";
 import Button from "../Button";
+import { useMeContext } from "../../contexts/Me";
+import PriceTitle from "./PriceTitle";
+import { usePurchaseMutation, Post } from "../../generated/graphql";
 
-const ModalPurchaseForm = () => {
+interface ModalPurchaseFormProps {
+  post: Post;
+}
+
+const stripe = window.Stripe("pk_test_PGr2UcNmiHlX7VhEIsN6sqsT00KcPDHxJG");
+
+const ModalPurchaseForm = ({ post }: ModalPurchaseFormProps) => {
+  const {
+    state: { me }
+  } = useMeContext();
+
+  const [purchase] = usePurchaseMutation({ variables: { postId: post.id } });
+  const [isLoading, setLoading] = useState(false);
+
+  const onClick = async () => {
+    setLoading(true);
+
+    const checkout = await purchase();
+
+    if (checkout.data && checkout.data.purchase) {
+      stripe.redirectToCheckout({
+        sessionId: checkout.data.purchase
+      });
+    }
+  };
+
   return (
-    <form>
-      <Input inputName="Name" label="Name" hasBorder={true} />
-      <FormRow>
-        <Input inputName="address" label="Home Address" hasBorder={true} />
-        <Input inputName="apt" label="Apt / Suite" hasBorder={true} />
-      </FormRow>
-      <FormRow>
-        <Input inputName="city" label="City" hasBorder={true} />
-        <Input inputName="state" label="State" hasBorder={true} />
-      </FormRow>
-      <FormRow>
-        <Input inputName="country" label="Country" hasBorder={true} />
-        <Input inputName="zip" label="Zip Code" hasBorder={true} />
-      </FormRow>
-      <Button type="submit" style={{ marginTop: 15, width: "100%" }}>
-        Purchase
+    <div>
+      <MeStatusText>
+        Logged in as {me && `${me.firstName} ${me.lastName}`}
+      </MeStatusText>
+      <MeDescription>{me && me.email}</MeDescription>
+      <PriceTitle price={post.price} />
+      <Button
+        type="submit"
+        style={{ marginTop: 15, width: "100%" }}
+        onClick={() => onClick()}
+        isLoading={isLoading}
+      >
+        {isLoading ? "Processing" : "Purchase"}
       </Button>
-    </form>
+    </div>
   );
 };
 
 export default ModalPurchaseForm;
+
+/*
+  const cardStyle = {
+    base: {
+      color: cardColor,
+      iconColor: cardColor,
+      fontFamily: body,
+      fontWeight: 500,
+      "::placeholder": {
+        color: secondary
+      }
+    }
+  };
+*/

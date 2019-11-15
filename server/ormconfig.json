@@ -21,8 +21,8 @@
     "database": "ecommerce",
     "synchronize": true,
     "logging": true,
-    "entities": ["dist/entity/*.*"],
-    "subscribers": ["dist/subscriber/*.*"],
-    "migrations": ["dist/migration/*.*"]
+    "entities": ["src/entity/*.*"],
+    "subscribers": ["src/subscriber/*.*"],
+    "migrations": ["src/migration/*.*"]
   }
 ]

@@ -6,11 +6,11 @@ export const BackgroundWash = styled.div`
   height: 100%;
   position: fixed;
   background: #30344650;
+  backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
-  overflow-y: hidden;
 `;
 
 export const ModalContainer = styled.div`
@@ -19,6 +19,7 @@ export const ModalContainer = styled.div`
   border-radius: 8px;
   padding: 20px;
   word-wrap: break-word;
+  box-shadow: 0 2px 50px 0 rgba(0, 0, 0, 0.1);
 `;
 
 // Modal Header

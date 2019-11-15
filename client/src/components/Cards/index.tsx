@@ -18,7 +18,7 @@ export const BigCard = ({ post, ...rest }: BigCardProps) => {
   const { name, imageUrl, description } = post;
 
   return (
-    <CardContainer flavor="LARGE" {...rest}>
+    <CardContainer flavor="LARGE" {...rest} purchased={post.isPurchased}>
       <CardImage alt={name} draggable={false} src={imageUrl} />
       <CardContentContainer>
         <CardTitle style={{ marginBottom: 5 }}>{name}</CardTitle>

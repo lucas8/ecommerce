@@ -45,6 +45,9 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   twoFactorChallenge: string;
 
+  @Column({ nullable: true })
+  stripeCustomerId: string;
+
   @OneToMany(
     () => Post,
     post => post.owner
