@@ -3,19 +3,20 @@ import { MeStatusText, MeDescription } from "./style";
 import Button from "../Button";
 import { useMeContext } from "../../contexts/Me";
 import PriceTitle from "./PriceTitle";
-import { usePurchaseMutation } from "../../generated/graphql";
+import { usePurchaseMutation, Post } from "../../generated/graphql";
 
 interface ModalPurchaseFormProps {
-  postId: string;
+  post: Post;
 }
 
 const stripe = window.Stripe("pk_test_PGr2UcNmiHlX7VhEIsN6sqsT00KcPDHxJG");
 
-const ModalPurchaseForm = ({ postId }: ModalPurchaseFormProps) => {
+const ModalPurchaseForm = ({ post }: ModalPurchaseFormProps) => {
   const {
     state: { me }
   } = useMeContext();
-  const [purchase] = usePurchaseMutation({ variables: { postId } });
+
+  const [purchase] = usePurchaseMutation({ variables: { postId: post.id } });
   const [isLoading, setLoading] = useState(false);
 
   const onClick = async () => {
@@ -36,7 +37,7 @@ const ModalPurchaseForm = ({ postId }: ModalPurchaseFormProps) => {
         Logged in as {me && `${me.firstName} ${me.lastName}`}
       </MeStatusText>
       <MeDescription>{me && me.email}</MeDescription>
-      <PriceTitle price={300} />
+      <PriceTitle price={post.price} />
       <Button
         type="submit"
         style={{ marginTop: 15, width: "100%" }}

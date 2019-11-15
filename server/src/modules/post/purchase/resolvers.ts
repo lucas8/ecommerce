@@ -66,6 +66,10 @@ export const resolvers: ResolverMap = {
             cancel_url: "http://localhost:3000/cancel"
           });
 
+          post.isPurchased = true;
+
+          transactionalEntityManager.save(post);
+
           return session.id;
         }
       );

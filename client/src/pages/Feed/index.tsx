@@ -68,7 +68,7 @@ const Feed = () => {
           <b>Lorum</b> Ipsum Dolor
         </CheckMarkRow>
         <Divider style={{ margin: "15px 0" }} />
-        <ModalPurchaseForm postId={modalPost.id} />
+        <ModalPurchaseForm post={modalPost} />
       </Modal>
       <Layout title="Feed">
         <FeedHeadContainer>
