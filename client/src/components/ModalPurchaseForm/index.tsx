@@ -3,16 +3,21 @@ import { MeStatusText, MeDescription } from "./style";
 import Button from "../Button";
 import { useMeContext } from "../../contexts/Me";
 import PriceTitle from "./PriceTitle";
-import { usePurchaseMutation, Post } from "../../generated/graphql";
+import {
+  usePurchaseMutation,
+  Post,
+  PostsDocument
+} from "../../generated/graphql";
 import StatusText from "../StatusText";
 
 interface ModalPurchaseFormProps {
   post: Post;
+  refetch: any;
 }
 
 const stripe = window.Stripe("pk_test_PGr2UcNmiHlX7VhEIsN6sqsT00KcPDHxJG");
 
-const ModalPurchaseForm = ({ post }: ModalPurchaseFormProps) => {
+const ModalPurchaseForm = ({ post, refetch }: ModalPurchaseFormProps) => {
   const {
     state: { me }
   } = useMeContext();
@@ -26,6 +31,8 @@ const ModalPurchaseForm = ({ post }: ModalPurchaseFormProps) => {
     setLoading(true);
 
     const checkout = await purchase();
+
+    await refetch();
 
     if (checkout.data && checkout.data.purchase) {
       // stripe.redirectToCheckout({
