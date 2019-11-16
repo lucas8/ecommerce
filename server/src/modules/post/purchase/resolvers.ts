@@ -18,7 +18,7 @@ export const resolvers: ResolverMap = {
           // Find post, open new pessimistic transaction
           const post = await transactionalEntityManager.findOne(Post, {
             where: { id: postId },
-            lock: { mode: "pessimistic_write" }
+            lock: { mode: "pessimistic_read" }
           });
           if (!post) {
             throw new postNotFound();
