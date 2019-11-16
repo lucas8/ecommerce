@@ -9,7 +9,7 @@ interface CardContainerProps {
 
 export const CardContainer = styled.div<CardContainerProps>`
   height: ${({ flavor }: CardContainerProps) =>
-    flavor === "LARGE" ? "300px" : "130px"};
+    flavor === "LARGE" ? "330px" : "130px"};
   border-radius: 6px;
   background: #fff;
   overflow: hidden;
