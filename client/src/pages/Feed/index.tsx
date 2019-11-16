@@ -95,8 +95,10 @@ const Feed = () => {
                   post={post}
                   key={post.id}
                   onClick={() => {
-                    setOpen(true);
-                    setModalPost(post);
+                    if (!post.isPurchased) {
+                      setOpen(true);
+                      setModalPost(post);
+                    }
                   }}
                 />
               );

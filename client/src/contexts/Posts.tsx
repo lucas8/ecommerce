@@ -55,7 +55,7 @@ export const PostsProvider = ({ children }: PostsProps) => {
       ...state,
       refetch: refetchPosts
     }),
-    [state]
+    [state, refetchPosts]
   );
 
   return (
