@@ -1,4 +1,4 @@
-import React, { Fragment, useState, ReactChildren, ReactNode } from "react";
+import React, { Fragment, useState, ReactNode } from "react";
 import Layout from "../../components/Layout";
 import {
   TitleText,

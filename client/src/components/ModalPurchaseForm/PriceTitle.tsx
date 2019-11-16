@@ -51,7 +51,10 @@ const PriceTitle = ({ price }: { price: number }) => {
         <PriceChip>usd</PriceChip>
       </TitleContainer>
       <StyledDescription>
-        No hidden fees, you only pay once 🎉
+        No hidden fees, you only pay once{" "}
+        <span role="img" aria-label="party-emoji">
+          🎉
+        </span>
       </StyledDescription>
     </PriceTitleContainer>
   );
