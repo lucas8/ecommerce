@@ -29,7 +29,7 @@ import { ReactComponent as Check } from "../../static/svg/check.svg";
 interface ModalState extends Post {}
 
 const Feed = () => {
-  const { posts, isLoading } = usePostsContext();
+  const { posts, isLoading, refetch } = usePostsContext();
   const [isOpen, setOpen] = useState(false);
   const [modalPost, setModalPost] = useState<ModalState>(PostsDocument);
 
@@ -68,7 +68,7 @@ const Feed = () => {
           <b>Lorum</b> Ipsum Dolor
         </CheckMarkRow>
         <Divider style={{ margin: "15px 0" }} />
-        <ModalPurchaseForm post={modalPost} />
+        <ModalPurchaseForm refetch={refetch} post={modalPost} />
       </Modal>
       <Layout title="Feed">
         <FeedHeadContainer>
@@ -95,8 +95,10 @@ const Feed = () => {
                   post={post}
                   key={post.id}
                   onClick={() => {
-                    setOpen(true);
-                    setModalPost(post);
+                    if (!post.isPurchased) {
+                      setOpen(true);
+                      setModalPost(post);
+                    }
                   }}
                 />
               );

@@ -7,11 +7,12 @@ import { usePurchaseMutation, Post } from "../../generated/graphql";
 
 interface ModalPurchaseFormProps {
   post: Post;
+  refetch: any;
 }
 
 const stripe = window.Stripe("pk_test_PGr2UcNmiHlX7VhEIsN6sqsT00KcPDHxJG");
 
-const ModalPurchaseForm = ({ post }: ModalPurchaseFormProps) => {
+const ModalPurchaseForm = ({ post, refetch }: ModalPurchaseFormProps) => {
   const {
     state: { me }
   } = useMeContext();
@@ -24,11 +25,15 @@ const ModalPurchaseForm = ({ post }: ModalPurchaseFormProps) => {
 
     const checkout = await purchase();
 
+    await refetch();
+
     if (checkout.data && checkout.data.purchase) {
       stripe.redirectToCheckout({
         sessionId: checkout.data.purchase
       });
     }
+
+    setLoading(false);
   };
 
   return (
@@ -43,6 +48,7 @@ const ModalPurchaseForm = ({ post }: ModalPurchaseFormProps) => {
         style={{ marginTop: 15, width: "100%" }}
         onClick={() => onClick()}
         isLoading={isLoading}
+        disabled={post.isPurchased}
       >
         {isLoading ? "Processing" : "Purchase"}
       </Button>
@@ -51,17 +57,3 @@ const ModalPurchaseForm = ({ post }: ModalPurchaseFormProps) => {
 };
 
 export default ModalPurchaseForm;
-
-/*
-  const cardStyle = {
-    base: {
-      color: cardColor,
-      iconColor: cardColor,
-      fontFamily: body,
-      fontWeight: 500,
-      "::placeholder": {
-        color: secondary
-      }
-    }
-  };
-*/

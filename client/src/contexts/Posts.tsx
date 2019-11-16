@@ -6,11 +6,20 @@ import React, {
   useContext,
   useMemo
 } from "react";
-import { usePostsQuery, Post } from "../generated/graphql";
+import {
+  usePostsQuery,
+  Post,
+  PostsQuery,
+  PostsQueryVariables
+} from "../generated/graphql";
+import { ApolloQueryResult } from "apollo-client";
 
 type PostsState = {
   isLoading: boolean;
   posts: Post[];
+  refetch?(
+    variables?: PostsQueryVariables | undefined
+  ): Promise<ApolloQueryResult<PostsQuery>>;
 };
 
 interface PostsProps {
@@ -20,7 +29,7 @@ interface PostsProps {
 const PostsContext = createContext<PostsState | undefined>(undefined);
 
 export const PostsProvider = ({ children }: PostsProps) => {
-  const { data, loading } = usePostsQuery();
+  const { data, loading, refetch: refetchPosts } = usePostsQuery();
 
   const [state, setState] = useState<PostsState>({
     isLoading: true,
@@ -43,9 +52,10 @@ export const PostsProvider = ({ children }: PostsProps) => {
 
   const value = useMemo(
     () => ({
-      ...state
+      ...state,
+      refetch: refetchPosts
     }),
-    [state]
+    [state, refetchPosts]
   );
 
   return (

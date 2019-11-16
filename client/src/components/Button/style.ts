@@ -16,12 +16,12 @@ export const StyledButton = styled.button<StyledButton>`
   padding: 0 20px;
   height: 40px;
   background: ${({
-  theme,
-  isLoading
-}: {
-  theme: ThemeType;
-  isLoading: boolean;
-}) => (isLoading ? theme.bg.hoverBlue : theme.bg.secondary)};
+    theme,
+    isLoading
+  }: {
+    theme: ThemeType;
+    isLoading: boolean;
+  }) => (isLoading ? theme.bg.hoverBlue : theme.bg.secondary)};
   display: flex;
   flex: none;
   align-items: center;
@@ -33,6 +33,15 @@ export const StyledButton = styled.button<StyledButton>`
   text-transform: uppercase;
   font-weight: bold;
   font-family: ${({ theme }: StyledThemeType) => theme.fonts.body};
+
+  :disabled {
+    opacity: 0.5;
+    background: #b3b3b3;
+
+    :hover {
+      background: #b3b3b3;
+    }
+  }
 
   .icon {
     margin-left: 8px;
