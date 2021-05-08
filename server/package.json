@@ -35,7 +35,7 @@
     "signale": "^1.4.0",
     "speakeasy": "^2.0.0",
     "stripe": "^7.13.0",
-    "typeorm": "^0.2.20",
+    "typeorm": "^0.2.25",
     "typescript": "^3.6.4",
     "yup": "^0.27.0"
   },
