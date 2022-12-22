@@ -27,7 +27,7 @@
     "graphql-tools": "^4.0.5",
     "graphql-yoga": "^1.18.3",
     "heroku-client": "^3.0.7",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "merge-graphql-schemas": "^1.7.0",
     "pg": "^7.12.1",
     "qrcode": "^1.4.2",
